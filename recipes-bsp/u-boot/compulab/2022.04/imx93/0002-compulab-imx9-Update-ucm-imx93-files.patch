@@ -1,0 +1,160 @@
+From 6a7f96ebb92a4d916c00b66cd90876907a722307 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Wed, 29 Mar 2023 18:40:49 +0300
+Subject: [PATCH 2/2] compulab: imx9: Update ucm-imx93 files
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/Makefile         | 15 ++++++++++++++-
+ drivers/clk/clk.c             | 18 ++++++++++--------
+ drivers/clk/imx/clk.h         | 15 +++++++++++++++
+ drivers/phy/Makefile          |  1 +
+ drivers/power/domain/Makefile |  1 +
+ drivers/video/Makefile        |  1 +
+ 6 files changed, 42 insertions(+), 9 deletions(-)
+
+diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
+index f3cf93f193..c7010055e2 100644
+--- a/arch/arm/dts/Makefile
++++ b/arch/arm/dts/Makefile
+@@ -960,13 +960,16 @@ dtb-$(CONFIG_ARCH_IMX8ULP) += \
+ 	imx8ulp-evk.dtb \
+ 	imx8ulp-evk-i3c.dtb \
+ 	imx8ulp-9x9-evk.dtb \
+-	imx8ulp-9x9-evk-i3c.dtb
++	imx8ulp-9x9-evk-i3c.dtb \
++	imx8ulp-watch.dtb
+ 
+ dtb-$(CONFIG_ARCH_IMX8M) += \
+ 	imx8mm-ddr4-evk.dtb \
++	imx8mm-ddr4-ab2.dtb \
+ 	imx8mm-ddr3l-val.dtb \
+ 	imx8mm-ddr4-val.dtb \
+ 	imx8mm-evk.dtb \
++	imx8mm-ab2.dtb \
+ 	imx8mm-icore-mx8mm-ctouch2.dtb \
+ 	imx8mm-icore-mx8mm-edimm2.2.dtb \
+ 	imx8mm-kontron-n801x-s.dtb \
+@@ -981,8 +984,10 @@ dtb-$(CONFIG_ARCH_IMX8M) += \
+ 	phycore-imx8mm.dtb \
+ 	imx8mn-ddr3l-evk.dtb \
+ 	imx8mn-ddr4-evk.dtb \
++	imx8mn-ddr4-ab2.dtb \
+ 	imx8mq-cm.dtb \
+ 	imx8mn-evk.dtb \
++	imx8mn-ab2.dtb \
+ 	imx8mn-var-som-symphony.dtb \
+ 	imx8mn-venice.dtb \
+ 	imx8mn-venice-gw7902.dtb \
+@@ -1007,6 +1012,14 @@ dtb-$(CONFIG_TARGET_UCM_IMX8M_PLUS) += ucm-imx8m-plus.dtb
+ dtb-$(CONFIG_TARGET_SOM_IMX8M_PLUS) += som-imx8m-plus.dtb
+ dtb-$(CONFIG_TARGET_IOT_GATE_IMX8PLUS) += iot-gate-imx8plus.dtb
+ 
++dtb-$(CONFIG_ARCH_IMX9) += \
++	imx93-11x11-evk.dtb \
++	imx93-9x9-qsb.dtb \
++	imx93-9x9-qsb-ontat-wvga-panel.dts
++
++dtb-$(CONFIG_TARGET_UCM_IMX93) += \
++	ucm-imx93.dtb
++
+ dtb-$(CONFIG_ARCH_IMXRT) += imxrt1050-evk.dtb \
+ 	imxrt1020-evk.dtb
+ 
+diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+index faabf3d0ef..7428fa2339 100644
+--- a/drivers/clk/clk.c
++++ b/drivers/clk/clk.c
+@@ -18,17 +18,19 @@
+ int clk_register(struct clk *clk, const char *drv_name,
+ 		 const char *name, const char *parent_name)
+ {
+-	struct udevice *parent;
++	struct udevice *parent = NULL;
+ 	struct driver *drv;
+ 	int ret;
+ 
+-	ret = uclass_get_device_by_name(UCLASS_CLK, parent_name, &parent);
+-	if (ret) {
+-		log_err("%s: failed to get %s device (parent of %s)\n",
+-			__func__, parent_name, name);
+-	} else {
+-		log_debug("%s: name: %s parent: %s [0x%p]\n", __func__, name,
+-			  parent->name, parent);
++	if (parent_name) {
++		ret = uclass_get_device_by_name(UCLASS_CLK, parent_name, &parent);
++		if (ret) {
++			log_err("%s: failed to get %s device (parent of %s)\n",
++				__func__, parent_name, name);
++		} else {
++			log_debug("%s: name: %s parent: %s [0x%p]\n", __func__, name,
++				  parent->name, parent);
++		}
+ 	}
+ 
+ 	drv = lists_driver_lookup_name(drv_name);
+diff --git a/drivers/clk/imx/clk.h b/drivers/clk/imx/clk.h
+index 43868fc7b4..4f70c99ec1 100644
+--- a/drivers/clk/imx/clk.h
++++ b/drivers/clk/imx/clk.h
+@@ -41,6 +41,21 @@ struct imx_pll14xx_clk {
+ 	int flags;
+ };
+ 
++struct imx93_pll_fracn_gp {
++	unsigned int rate;
++	unsigned int mfi;
++	unsigned int mfn;
++	unsigned int mfd;
++	unsigned int rdiv;
++	unsigned int odiv;
++};
++
++struct clk *clk_register_imx93_pll(const char *name, const char *parent_name,
++				   void __iomem *reg);
++struct clk *clk_register_imx93_clk_gate(const char *name, const char *parent_name,
++					void __iomem *reg_base, u8 lpcg_on_offset,
++					ulong flags);
++
+ struct clk *imx_clk_pll14xx(const char *name, const char *parent_name,
+ 			    void __iomem *base,
+ 			    const struct imx_pll14xx_clk *pll_clk);
+diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
+index 6802af9301..adde29339a 100644
+--- a/drivers/phy/Makefile
++++ b/drivers/phy/Makefile
+@@ -39,6 +39,7 @@ obj-$(CONFIG_CDNS3_USB_PHY) += cdns3-usb-phy.o
+ obj-$(CONFIG_PHY_DA8XX_USB) += phy-da8xx-usb.o
+ obj-$(CONFIG_PHY_MTK_TPHY) += phy-mtk-tphy.o
+ obj-$(CONFIG_PHY_IMX8MQ_USB) += phy-imx8mq-usb.o
++obj-$(CONFIG_PHY_IMX93_MIPI_DPHY) += phy-imx93-mipi-dphy.o
+ obj-$(CONFIG_PHY_XILINX_ZYNQMP) += phy-zynqmp.o
+ obj-$(CONFIG_$(SPL_)PHY_SAMSUNG_HDMI) += phy-fsl-samsung-hdmi-clk.o phy-fsl-samsung-hdmi.o
+ obj-y += cadence/
+diff --git a/drivers/power/domain/Makefile b/drivers/power/domain/Makefile
+index b8a5dc61c4..e5463d8ea6 100644
+--- a/drivers/power/domain/Makefile
++++ b/drivers/power/domain/Makefile
+@@ -9,6 +9,7 @@ obj-$(CONFIG_BCM6328_POWER_DOMAIN) += bcm6328-power-domain.o
+ obj-$(CONFIG_IMX8_POWER_DOMAIN) += imx8-power-domain-legacy.o imx8-power-domain.o
+ obj-$(CONFIG_IMX8M_POWER_DOMAIN) += imx8m-power-domain.o
+ obj-$(CONFIG_IMX8M_PM_DOMAINS) += imx8m_pm_domains.o
++obj-$(CONFIG_IMX93_BLK_CTRL) += imx93-blk-ctrl.o
+ obj-$(CONFIG_MTK_POWER_DOMAIN) += mtk-power-domain.o
+ obj-$(CONFIG_MESON_GX_VPU_POWER_DOMAIN) += meson-gx-pwrc-vpu.o
+ obj-$(CONFIG_MESON_EE_POWER_DOMAIN) += meson-ee-pwrc.o
+diff --git a/drivers/video/Makefile b/drivers/video/Makefile
+index f3d0b851b5..9266ac9693 100644
+--- a/drivers/video/Makefile
++++ b/drivers/video/Makefile
+@@ -65,6 +65,7 @@ obj-$(CONFIG_VIDEO_LCD_STARTEK_ILI9881C) += startek-ili9881c.o
+ obj-$(CONFIG_VIDEO_LCD_ROCKTECH_HIMAX8394F) += rocktech-hx8394f.o
+ obj-$(CONFIG_VIDEO_LCD_SSD2828) += ssd2828.o
+ obj-$(CONFIG_VIDEO_LCD_TDO_TL070WSH30) += tdo-tl070wsh30.o
++obj-$(CONFIG_VIDEO_LCD_USMP_RM67162) += usmp-rm67162.o
+ obj-$(CONFIG_VIDEO_MCDE_SIMPLE) += mcde_simple.o
+ obj-$(CONFIG_VIDEO_ADV7535) += adv7535.o
+ obj-${CONFIG_VIDEO_MESON} += meson/
+-- 
+2.17.1
+
