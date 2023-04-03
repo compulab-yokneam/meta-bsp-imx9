@@ -1,0 +1,32 @@
+From caefe5af7107dc3d448a85b748300d778a79f889 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Mon, 3 Apr 2023 17:33:36 +0300
+Subject: [PATCH] ucm-imx93: config: Remove unused stuff
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ include/configs/ucm-imx93.h | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/include/configs/ucm-imx93.h b/include/configs/ucm-imx93.h
+index d4083d158e..1145eeff92 100644
+--- a/include/configs/ucm-imx93.h
++++ b/include/configs/ucm-imx93.h
+@@ -202,13 +202,8 @@
+ #define CONFIG_USB_MAX_CONTROLLER_COUNT         2
+ 
+ #if defined(CONFIG_CMD_NET)
+-#define CONFIG_ETHPRIME                 "eth1"
+-
++#define CONFIG_ETHPRIME                 "eth0"
+ #define CONFIG_FEC_XCV_TYPE             RGMII
+-#define CONFIG_FEC_MXC_PHYADDR          2
+-
+-#define DWC_NET_PHYADDR			1
+-
+ #define PHY_ANEG_TIMEOUT 20000
+ 
+ #endif
+-- 
+2.17.1
+
