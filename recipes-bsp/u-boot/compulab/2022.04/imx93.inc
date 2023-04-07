@@ -10,5 +10,6 @@ SRC_URI:append = " \
 	file://0008-drivers-video-startek-ili9881c-Add-.plat_auto-.data.patch \
 	file://0009-ucm-imx93-dts-Add-mipi-dsi-display.patch \
 	file://0010-ucm-imx93-config-Update-defconfig.patch \
+	file://0011-ucm-imx93-Add-compulab-imx93.h.patch \
 	file://ucm-imx93_defconfig \
 "
