@@ -1,0 +1,111 @@
+From e89d677e6d8cab6b635c8efd5b19d2c140e7fc5b Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Fri, 7 Apr 2023 13:53:04 +0300
+Subject: [PATCH] video: draft #00
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm64/boot/dts/compulab/ucm-imx93.dts | 67 ++++++++++++----------
+ 1 file changed, 36 insertions(+), 31 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93.dts b/arch/arm64/boot/dts/compulab/ucm-imx93.dts
+index 95c11d0ee347..b5e7bc581e9c 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93.dts
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93.dts
+@@ -167,35 +167,6 @@
+ 			};
+ 		};
+ 	};
+-
+-	ili9881c_panel {
+-		compatible = "startek,kd050hdfia020";
+-		reset-gpio = <&pca9555 4 GPIO_ACTIVE_LOW>;
+-		dsi-lanes = <4>;
+-		panel-width-mm = <63>;
+-		panel-height-mm = <115>;
+-		status = "okay";
+-
+-		display-timings {
+-			native-mode = <&timing1>;
+-			timing1: timing1 {
+-				clock-frequency = <62000000>;
+-				hactive = <1280>;
+-				vactive = <720>;
+-				hfront-porch = <30>;
+-				hback-porch = <10>;
+-				hsync-len = <20>;
+-				vback-porch = <20>;
+-				vfront-porch = <10>;
+-				vsync-len = <10>;
+-			};
+-		};
+-		port {
+-			ili9881c_from_dsim: endpoint {
+-				remote-endpoint = <&dsi_out>;
+-			};
+-		};
+-	};
+ };
+ 
+ &sai1 {
+@@ -310,13 +281,47 @@
+ };
+ 
+ &dsi {
++	#address-cells = <1>;
++	#size-cells = <0>;
+ 	status = "okay";
+ 
++	panel@0 {
++		compatible = "startek,kd050hdfia020";
++		reg = <0>;
++		reset-gpio = <&pca9555 4 GPIO_ACTIVE_LOW>;
++		dsi-lanes = <4>;
++		panel-width-mm = <63>;
++		panel-height-mm = <115>;
++		status = "okay";
++
++		display-timings {
++			native-mode = <&timing1>;
++			timing1: timing1 {
++				clock-frequency = <62000000>;
++				hactive = <1280>;
++				vactive = <720>;
++				hfront-porch = <30>;
++				hback-porch = <10>;
++				hsync-len = <20>;
++				vback-porch = <20>;
++				vfront-porch = <10>;
++				vsync-len = <10>;
++			};
++		};
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&dsi_out>;
++			};
++		};
++	};
++
+ 	ports {
+ 		port@1 {
+ 			reg = <1>;
++
+ 			dsi_out: endpoint {
+-				remote-endpoint = <&ili9881c_from_dsim>;
++				remote-endpoint = <&panel_in>;
+ 			};
+ 		};
+ 	};
+@@ -324,7 +329,7 @@
+ 
+ &lcdif {
+ 	status = "okay";
+-	assigned-clock-rates = <445333333>, <148444444>, <400000000>, <133333333>;
++	assigned-clock-rates = <484000000>, <121000000>, <400000000>, <133333333>;
+ };
+ 
+ &lpi2c1 {
+-- 
+2.17.1
+
