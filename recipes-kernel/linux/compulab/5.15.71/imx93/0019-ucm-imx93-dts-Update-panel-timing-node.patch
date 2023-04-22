@@ -1,0 +1,42 @@
+From 2f86f247c16e64f312011f9d885128ec92935099 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Sat, 22 Apr 2023 20:59:23 +0300
+Subject: [PATCH] ucm-imx93: dts: Update panel timing node
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm64/boot/dts/compulab/ucm-imx93.dts | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93.dts b/arch/arm64/boot/dts/compulab/ucm-imx93.dts
+index e33c212430db..477ec3c7c612 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93.dts
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93.dts
+@@ -297,14 +297,16 @@
+ 
+ 		panel-timing {
+ 				clock-frequency = <60000000>;
+-				hactive = <720>;
+-				vactive = <1280>;
+-				hfront-porch = <20>;
+-				hback-porch = <10>;
+-				hsync-len = <10>;
+-				vfront-porch = <10>;
+-				vback-porch = <30>;
+-				vsync-len = <20>;
++				/*X*/
++				hsync-len     = <10>;
++				hback-porch   = <10>;
++				hactive       = <720>;
++				hfront-porch  = <20>;
++				/*Y*/
++				vsync-len     = <20>;
++				vback-porch   = <30>;
++				vactive       = <1280>;
++				vfront-porch  = <10>;
+ 		};
+ 		port {
+ 			panel_in: endpoint {
+-- 
+2.17.1
+

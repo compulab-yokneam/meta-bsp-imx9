@@ -1,0 +1,31 @@
+From 5e3422630ffe72ed424d591967a7e224d6a30aad Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Wed, 12 Apr 2023 15:39:49 +0300
+Subject: [PATCH] som-imx8m-plus: dts: Add marvell,sd8897-bt provision
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm64/boot/dts/compulab/som-imx8m-plus.dts | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/compulab/som-imx8m-plus.dts b/arch/arm64/boot/dts/compulab/som-imx8m-plus.dts
+index 117bb26fd34e..a9be656c9c0a 100644
+--- a/arch/arm64/boot/dts/compulab/som-imx8m-plus.dts
++++ b/arch/arm64/boot/dts/compulab/som-imx8m-plus.dts
+@@ -795,6 +795,13 @@
+ 		compatible = "marvell,sd8997";
+ 		reg = <1>;
+ 	};
++
++#ifdef MARVELL_BTSD
++	btmrvl: btmrvl@2 {
++		compatible = "marvell,sd8897-bt";
++		reg = <2>;
++	};
++#endif
+ };
+ 
+ &usdhc2 {
+-- 
+2.17.1
+

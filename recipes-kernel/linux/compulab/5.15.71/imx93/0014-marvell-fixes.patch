@@ -1,0 +1,109 @@
+From 806a78917ca7281f13d3739847feeb7c7a13fff3 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Wed, 12 Apr 2023 17:12:25 +0300
+Subject: [PATCH] marvell: fixes
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm64/boot/dts/compulab/ucm-imx93.dts | 51 +++-------------------
+ 1 file changed, 5 insertions(+), 46 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93.dts b/arch/arm64/boot/dts/compulab/ucm-imx93.dts
+index 3d5de4791be1..726d3ebd801b 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93.dts
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93.dts
+@@ -117,37 +117,11 @@
+ 		regulator-max-microvolt = <1800000>;
+ 	};
+ 
+-#if 0
+ 	usdhc3_pwrseq: usdhc3_pwrseq {
+ 		compatible = "mmc-pwrseq-simple";
+-		reset-gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
+-	};
+-#else
+-	reg_usdhc3_vmmc: regulator-usdhc3 {
+-		compatible = "regulator-fixed";
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_reg_usdhc3_vmmc>;
+-		regulator-name = "usdhc3_VSD_3V3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		gpio = <&gpio1 17 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-		regulator-always-on;
++		reset-gpios = <&gpio2 17 GPIO_ACTIVE_LOW>;
+ 	};
+ 
+-	reg_btregon: regulator-btregon {
+-		compatible = "regulator-fixed";
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_reg_btregon>;
+-		regulator-name = "btregon_VSD_3V3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		gpio = <&gpio1 18 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-		regulator-always-on;
+-	};
+-#endif
+-
+ 	sound-micfil {
+ 		compatible = "fsl,imx-audio-card";
+ 		model = "imx-audio-micfil";
+@@ -517,24 +491,9 @@
+ &lpuart5 {
+ 	/* BT */
+ 	pinctrl-names = "default";
+-	pinctrl-assert-gpios = <&gpio1 16 GPIO_ACTIVE_HIGH>;
+ 	pinctrl-0 = <&pinctrl_uart5>;
+-	fsl,uart-has-rtscts;
++	/*fsl,uart-has-rtscts;*/
+ 	status = "okay";
+-#if 0
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-	btmrvl: btmrvl@1 {
+-		compatible = "marvell,sd8897-bt";
+-		reg = <1>;
+-#if 0
+-		interrupt-parent = <&pio>;
+-		interrupts = <119 IRQ_TYPE_LEVEL_LOW>;
+-		marvell,wakeup-pin = /bits/ 16 <0x0d>;
+-		marvell,wakeup-gap-ms = /bits/ 16 <0x64>;
+-#endif
+-	};
+-#endif
+ };
+ 
+ &mu1 {
+@@ -599,7 +558,7 @@
+ 	pinctrl-0 = <&pinctrl_usdhc3>, <&pinctrl_usdhc3_wlan>;
+ 	pinctrl-1 = <&pinctrl_usdhc3>, <&pinctrl_usdhc3_wlan>;
+ 	pinctrl-2 = <&pinctrl_usdhc3>, <&pinctrl_usdhc3_wlan>;
+-	/*vmmc-supply = <&reg_usdhc3_vmmc>;*/
++	mmc-pwrseq = <&usdhc3_pwrseq>;
+ 	bus-width = <4>;
+ 	non-removable;
+ 	wakeup-source;
+@@ -611,7 +570,7 @@
+ 		reg = <1>;
+ 	};
+ 
+-#if 0
++#ifdef MARVELL_BTSD
+ 	btmrvl: btmrvl@2 {
+ 		compatible = "marvell,sd8897-bt";
+ 		reg = <2>;
+@@ -707,7 +666,7 @@
+ 			MX93_PAD_GPIO_IO00__LPUART5_TX		0x31e
+ 			MX93_PAD_GPIO_IO02__LPUART5_CTS_B	0x31e
+ 			MX93_PAD_GPIO_IO03__LPUART5_RTS_B	0x31e
+-			MX93_PAD_GPIO_IO16__GPIO2_IO16		0x31e
++			MX93_PAD_GPIO_IO18__GPIO2_IO18		0x31e
+ 		>;
+ 	};
+ 
+-- 
+2.17.1
+
