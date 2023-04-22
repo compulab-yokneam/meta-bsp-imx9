@@ -11,5 +11,12 @@ SRC_URI:append = " \
 	file://0009-ucm-imx93-dts-Add-mipi-dsi-display.patch \
 	file://0010-ucm-imx93-config-Update-defconfig.patch \
 	file://0011-ucm-imx93-Add-compulab-imx93.h.patch \
+	file://0012-ucm-imx93-Move-default-values-to-the-board-Kconfig.patch \
+	file://0013-compulab-imx93-Remove-all-stdout-stdin-stderr.patch \
+	file://0014-drivers-video-startek-ili9881c-Add-ili9881c_panel_of.patch \
+	file://0015-ucm-imx93-dts-Remove-u-boot-lcdif-clocks.patch \
+	file://0016-ucm-imx93-dts-Update-panel-node.patch \
+	file://0017-drivers-video-startek-ili9881c-Update-panel-timing.patch \
+	file://0018-drivers-video-startek-ili9881c-Suppress-debug-prints.patch \
 	file://ucm-imx93_defconfig \
 "

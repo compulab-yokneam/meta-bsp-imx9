@@ -1,0 +1,30 @@
+From 473736cebcae6959d9fa7b7c0d2aa8f96acee0e2 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Wed, 19 Apr 2023 14:39:19 +0300
+Subject: [PATCH] ucm-imx93: dts: Remove u-boot lcdif clocks
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/ucm-imx93-u-boot.dtsi | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/arch/arm/dts/ucm-imx93-u-boot.dtsi b/arch/arm/dts/ucm-imx93-u-boot.dtsi
+index 0e0d4bbded..ff17d9744c 100644
+--- a/arch/arm/dts/ucm-imx93-u-boot.dtsi
++++ b/arch/arm/dts/ucm-imx93-u-boot.dtsi
+@@ -191,12 +191,6 @@
+ 	u-boot,dm-spl;
+ };
+ 
+-&lcdif {
+-	assigned-clocks = <&clk IMX93_CLK_MEDIA_AXI>, <&clk IMX93_CLK_MEDIA_APB>;
+-	assigned-clock-parents = <&clk IMX93_CLK_SYS_PLL_PFD1>, <&clk IMX93_CLK_SYS_PLL_PFD1_DIV2>;
+-	assigned-clock-rates = <400000000>, <133333334>;
+-};
+-
+ &dphy {
+ 	/delete-property/ power-domains;
+ };
+-- 
+2.17.1
+
