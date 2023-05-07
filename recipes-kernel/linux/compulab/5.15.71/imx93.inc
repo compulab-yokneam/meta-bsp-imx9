@@ -30,6 +30,7 @@ SRC_URI:append = " \
 	file://0028-ucm-imx93-dts-Makefile-Add-overlays-to-build.patch \
 	file://0029-ucm-imx93-dts-Minor-refactoring.patch \
 	file://0030-ucm-imx93-dts-Disable-backlight.patch \
+	file://0031-ucm-imx93-dts-lvds-Clean-up-overlay-tags.patch \
 	file://defconfig \
 "
 
