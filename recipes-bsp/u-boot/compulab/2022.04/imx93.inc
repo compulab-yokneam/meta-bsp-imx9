@@ -18,5 +18,7 @@ SRC_URI:append = " \
 	file://0016-ucm-imx93-dts-Update-panel-node.patch \
 	file://0017-drivers-video-startek-ili9881c-Update-panel-timing.patch \
 	file://0018-drivers-video-startek-ili9881c-Suppress-debug-prints.patch \
+	file://0019-ucm-imx93-config-env-Add-overlay-load-logics.patch \
+	file://0020-ucm-imx8m-plus-config-env-Add-overlay-load-logics.patch \
 	file://ucm-imx93_defconfig \
 "
