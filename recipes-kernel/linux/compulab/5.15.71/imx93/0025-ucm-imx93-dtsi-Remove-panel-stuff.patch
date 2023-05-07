@@ -1,0 +1,78 @@
+From cb80699f974c273a25ad7f585db7d46ceaadd0f7 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Sat, 6 May 2023 17:18:10 +0300
+Subject: [PATCH] ucm-imx93: dtsi: Remove panel stuff
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm64/boot/dts/compulab/ucm-imx93.dtsi | 54 ---------------------
+ 1 file changed, 54 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi b/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
+index 64727967a2b3..e39529af1c91 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
+@@ -273,60 +273,6 @@
+ 	status = "okay";
+ };
+ 
+-&dphy {
+-	status = "okay";
+-};
+-
+-&dsi {
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-	status = "okay";
+-
+-	panel@0 {
+-		compatible = "startek,kd050hdfia020";
+-		reg = <0>;
+-		reset-gpio = <&pca9555 4 GPIO_ACTIVE_LOW>;
+-		dsi-lanes = <4>;
+-		panel-width-mm = <63>;
+-		panel-height-mm = <115>;
+-		status = "okay";
+-
+-		panel-timing {
+-				clock-frequency = <60000000>;
+-				/*X*/
+-				hsync-len     = <10>;
+-				hback-porch   = <10>;
+-				hactive       = <720>;
+-				hfront-porch  = <20>;
+-				/*Y*/
+-				vsync-len     = <20>;
+-				vback-porch   = <30>;
+-				vactive       = <1280>;
+-				vfront-porch  = <10>;
+-		};
+-		port {
+-			panel_in: endpoint {
+-				remote-endpoint = <&dsi_out>;
+-			};
+-		};
+-	};
+-
+-	ports {
+-		port@1 {
+-			reg = <1>;
+-
+-			dsi_out: endpoint {
+-				remote-endpoint = <&panel_in>;
+-			};
+-		};
+-	};
+-};
+-
+-&lcdif {
+-	status = "okay";
+-	assigned-clock-rates = <484000000>, <121000000>, <400000000>, <133333333>;
+-};
+-
+ &lpi2c1 {
+ 	#address-cells = <1>;
+ 	#size-cells = <0>;
+-- 
+2.17.1
+
