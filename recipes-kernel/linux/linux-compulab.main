@@ -39,6 +39,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/compulab/${PV}/imx93:"
 require compulab/${PV}/imx93.inc
 
 KERNEL_CONFIG = "${MACHINE}_defconfig compulab.config"
+EXTRA_OEMAKE += "DTC_FLAGS=-@ "
 
 do_configure:prepend() {
     # Configuration fragments add support
