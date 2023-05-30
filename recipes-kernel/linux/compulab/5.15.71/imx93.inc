@@ -31,6 +31,7 @@ SRC_URI:append = " \
 	file://0029-ucm-imx93-dts-Minor-refactoring.patch \
 	file://0030-ucm-imx93-dts-Disable-backlight.patch \
 	file://0031-ucm-imx93-dts-lvds-Clean-up-overlay-tags.patch \
+	file://0032-ucm-imx93-dts-Move-pca9555-to-i2c3.patch \
 	file://defconfig \
 "
 

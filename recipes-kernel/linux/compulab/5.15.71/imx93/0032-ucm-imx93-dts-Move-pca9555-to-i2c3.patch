@@ -1,0 +1,45 @@
+From 89a837e42ac173e1da5efc414887ce65e901a32b Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Tue, 30 May 2023 11:03:49 +0300
+Subject: [PATCH] ucm-imx93: dts: Move pca9555 to i2c3
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm64/boot/dts/compulab/ucm-imx93.dtsi | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi b/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
+index e39529af1c91..82abf20af7af 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
+@@ -282,13 +282,6 @@
+ 	pinctrl-1 = <&pinctrl_lpi2c1>;
+ 	status = "okay";
+ 
+-        pca9555:pca9555@20 {
+-                compatible = "nxp,pca9555";
+-                gpio-controller;
+-                #gpio-cells = <2>;
+-                reg = <0x20>;
+-        };
+-
+ 	rtc@69 {
+ 		compatible = "ab1805";
+ 		reg = <0x69>;
+@@ -408,6 +401,13 @@
+ 	pinctrl-0 = <&pinctrl_lpi2c3>;
+ 	pinctrl-1 = <&pinctrl_lpi2c3>;
+ 	status = "okay";
++
++        pca9555:pca9555@20 {
++                compatible = "nxp,pca9555";
++                gpio-controller;
++                #gpio-cells = <2>;
++                reg = <0x20>;
++        };
+ };
+ 
+ &lpuart1 { /* console */
+-- 
+2.17.1
+
