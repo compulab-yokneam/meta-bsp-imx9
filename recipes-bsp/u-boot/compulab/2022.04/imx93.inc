@@ -22,5 +22,6 @@ SRC_URI:append = " \
 	file://0020-Update-ucm-imx93.dts.patch \
 	file://0021-compulab-imx9-Makefile-Remove-unused-stuff.patch \
 	file://0022-ucm-imx93-dts-Enable-pinctrl_usdhc1-in-spl.patch \
+	file://0023-ucm-imx93-dts-mipi-Fix-mipi-dsi-timing-issue.patch \
 	file://ucm-imx93_defconfig \
 "
