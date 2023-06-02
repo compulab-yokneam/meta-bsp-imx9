@@ -1,0 +1,40 @@
+From b268feb453a64ff1d13594636e9c52bf5d4897d8 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Fri, 2 Jun 2023 15:52:18 +0300
+Subject: [PATCH] ucm-imx93: dts: mipi: Define dsi_backlight with tpm5
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm64/boot/dts/compulab/ucm-imx93-mipi.dtsi | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93-mipi.dtsi b/arch/arm64/boot/dts/compulab/ucm-imx93-mipi.dtsi
+index b48145b76b0d..1994b01286ef 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93-mipi.dtsi
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93-mipi.dtsi
+@@ -6,7 +6,10 @@
+ / {
+ 	dsi_backlight: dsi_backlight {
+ 		compatible = "pwm-backlight";
+-		/*pwms = <&pwm1 0 3000000 0>;*/
++		pwms = <&tpm5 0 3000000 0>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_tpm5>;
++
+ 		status = "okay";
+ 
+ 		brightness-levels = <0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+@@ -29,6 +32,10 @@
+ 	};
+ };
+ 
++&tpm5 {
++	status = "okay";
++};
++
+ &ldb {
+ 	status = "disabled";
+ };
+-- 
+2.17.1
+

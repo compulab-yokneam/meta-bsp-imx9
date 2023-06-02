@@ -32,6 +32,13 @@ SRC_URI:append = " \
 	file://0030-ucm-imx93-dts-Disable-backlight.patch \
 	file://0031-ucm-imx93-dts-lvds-Clean-up-overlay-tags.patch \
 	file://0032-ucm-imx93-dts-Move-pca9555-to-i2c3.patch \
+	file://0033-ucm-imx93-dts-pinctrl-Add-pinctrl_tpm5-and-touchscre.patch \
+	file://0034-ucm-imx93-dts-Define-pwm-42500000.patch \
+	file://0035-ucm-imx93-dts-Define-mipi-dsi-touch-screen.patch \
+	file://0036-ucm-imx93-dts-mipi-Fix-mipi-dsi-timing-issue.patch \
+	file://0037-ucm-imx93-dts-mipi-Define-dsi_backlight-with-tpm5.patch \
+	file://0038-ucm-imx93-dts-mipi-Enable-goodix-touch-screen.patch \
+	file://0039-ucm-imx93-config-Update-for-pwm-tpm.patch \
 	file://defconfig \
 "
 

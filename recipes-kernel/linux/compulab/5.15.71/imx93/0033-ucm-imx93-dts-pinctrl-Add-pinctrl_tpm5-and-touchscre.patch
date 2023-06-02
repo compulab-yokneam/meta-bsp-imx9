@@ -1,0 +1,39 @@
+From 0fd009fb7eb525fd917032d9c360fa31d5d7ed34 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Fri, 2 Jun 2023 15:36:13 +0300
+Subject: [PATCH] ucm-imx93: dts: pinctrl: Add pinctrl_tpm5 and
+ touchscreen1_pins
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ .../arm64/boot/dts/compulab/ucm-imx93-pinctrl.dtsi | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93-pinctrl.dtsi b/arch/arm64/boot/dts/compulab/ucm-imx93-pinctrl.dtsi
+index 78fe2f862eed..e07a9e727627 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93-pinctrl.dtsi
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93-pinctrl.dtsi
+@@ -202,7 +202,19 @@
+ 
+ 	pinctrl_pmic: pmicirq {
+ 		fsl,pins = <
+-			MX93_PAD_GPIO_IO24__GPIO2_IO24			0x31e
++			MX93_PAD_GPIO_IO24__GPIO2_IO24		0x31e
++		>;
++	};
++
++	pinctrl_tpm5: tmp5grp {
++		fsl,pins = <
++			MX93_PAD_GPIO_IO22__TPM5_CH1		0x31e
++		>;
++	};
++
++	touchscreen1_pins: ts1grp {
++		fsl,pins = <
++			MX93_PAD_GPIO_IO21__GPIO2_IO21		0x31e
+ 		>;
+ 	};
+ };
+-- 
+2.17.1
+

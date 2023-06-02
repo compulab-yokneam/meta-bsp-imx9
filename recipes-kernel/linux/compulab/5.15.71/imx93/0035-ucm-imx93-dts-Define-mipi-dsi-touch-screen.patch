@@ -1,0 +1,39 @@
+From 279db6a28fb1d80e2a0778607716cc4591d5546a Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Fri, 2 Jun 2023 15:47:29 +0300
+Subject: [PATCH] ucm-imx93: dts: Define mipi dsi touch screen
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm64/boot/dts/compulab/ucm-imx93.dtsi | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi b/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
+index d997ffddc63d..c32fa89d87fd 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
+@@ -421,6 +421,21 @@
+                 #gpio-cells = <2>;
+                 reg = <0x20>;
+         };
++
++	goodix911_mipi: goodix@5d {
++		compatible = "goodix,gt911";
++		reg = <0x5d>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&touchscreen1_pins>;
++
++		interrupt-parent = <&gpio2>;
++		interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;
++		irq-gpios = <&gpio2 21 GPIO_ACTIVE_HIGH>;
++
++		reset-gpios = <&pca9555 5 GPIO_ACTIVE_HIGH>;
++		status = "disabled";
++	};
+ };
+ 
+ &lpuart1 { /* console */
+-- 
+2.17.1
+
