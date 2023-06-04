@@ -23,5 +23,7 @@ SRC_URI:append = " \
 	file://0021-compulab-imx9-Makefile-Remove-unused-stuff.patch \
 	file://0022-ucm-imx93-dts-Enable-pinctrl_usdhc1-in-spl.patch \
 	file://0023-ucm-imx93-dts-mipi-Fix-mipi-dsi-timing-issue.patch \
+	file://0024-ucm-imx93-config-Set-boot-targets-order-usb0-mmc1-mm.patch \
+	file://0025-ucm-imx93-config-Fix-ulfdt-after-overlay-support.patch \
 	file://ucm-imx93_defconfig \
 "
