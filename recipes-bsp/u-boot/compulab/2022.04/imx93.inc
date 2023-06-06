@@ -25,5 +25,10 @@ SRC_URI:append = " \
 	file://0023-ucm-imx93-dts-mipi-Fix-mipi-dsi-timing-issue.patch \
 	file://0024-ucm-imx93-config-Set-boot-targets-order-usb0-mmc1-mm.patch \
 	file://0025-ucm-imx93-config-Fix-ulfdt-after-overlay-support.patch \
+	file://0026-ucm-imx93-dts-Add-som-and-sb-eeprom.patch \
+	file://0027-ucm-imx93-Add-eeprom-access-support.patch \
+	file://0028-ucm-imx93-Read-both-mac-addresses-from-the-som-eepro.patch \
+	file://0029-ucm-imx93-dts-Add-ethernet-aliases.patch \
+	file://0030-ucm-imx93-ethernet-Get-random-address-if-not-provide.patch \
 	file://ucm-imx93_defconfig \
 "

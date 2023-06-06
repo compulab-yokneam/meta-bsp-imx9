@@ -1,0 +1,26 @@
+From 886b365fdb62269c4b357a275bd2e69cc8e6e075 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Tue, 6 Jun 2023 11:55:58 +0300
+Subject: [PATCH] ucm-imx93: dts: Add ethernet aliases
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/ucm-imx93.dts | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/arm/dts/ucm-imx93.dts b/arch/arm/dts/ucm-imx93.dts
+index a51f3e9863..847dc6f86f 100644
+--- a/arch/arm/dts/ucm-imx93.dts
++++ b/arch/arm/dts/ucm-imx93.dts
+@@ -17,6 +17,8 @@
+ 
+ 	aliases {
+ 		i2c8 = &flexio_i2c_master;
++		ethernet0 = &eqos;
++		ethernet1 = &fec;
+ 	};
+ 
+ 	reserved-memory {
+-- 
+2.17.1
+
