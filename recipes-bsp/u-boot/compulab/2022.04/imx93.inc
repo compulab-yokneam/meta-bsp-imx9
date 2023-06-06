@@ -30,5 +30,6 @@ SRC_URI:append = " \
 	file://0028-ucm-imx93-Read-both-mac-addresses-from-the-som-eepro.patch \
 	file://0029-ucm-imx93-dts-Add-ethernet-aliases.patch \
 	file://0030-ucm-imx93-ethernet-Get-random-address-if-not-provide.patch \
+	file://0031-ucm-imx93-defconfig-Enable-USB_ETHER_ASIX88179-USB_E.patch \
 	file://ucm-imx93_defconfig \
 "
