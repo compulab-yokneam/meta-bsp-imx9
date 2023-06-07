@@ -1,35 +1,3 @@
 SRC_URI:append = " \
-	file://0000-compulab-imx9-Add-ucm-imx93-board-support.patch \
-	file://0001-compulab-imx9-Update-ucm-imx93-files.patch \
-	file://0002-compulab-imx9-Update-ucm-imx93-files.patch \
-	file://0003-ucm-imx93-dts-Update-device-tree-files.patch \
-	file://0004-ucm-imx93-board-Remove-unused-stuff.patch \
-	file://0005-ucm-imx93-config-Remove-unused-stuff.patch \
-	file://0006-drivers-phy-Fix-mergre-issue.patch \
-	file://0007-drivers-video-nxp-Fix-mergre-issue.patch \
-	file://0008-drivers-video-startek-ili9881c-Add-.plat_auto-.data.patch \
-	file://0009-ucm-imx93-dts-Add-mipi-dsi-display.patch \
-	file://0010-ucm-imx93-config-Update-defconfig.patch \
-	file://0011-ucm-imx93-Add-compulab-imx93.h.patch \
-	file://0012-ucm-imx93-Move-default-values-to-the-board-Kconfig.patch \
-	file://0013-compulab-imx93-Remove-all-stdout-stdin-stderr.patch \
-	file://0014-drivers-video-startek-ili9881c-Add-ili9881c_panel_of.patch \
-	file://0015-ucm-imx93-dts-Remove-u-boot-lcdif-clocks.patch \
-	file://0016-ucm-imx93-dts-Update-panel-node.patch \
-	file://0017-drivers-video-startek-ili9881c-Update-panel-timing.patch \
-	file://0018-drivers-video-startek-ili9881c-Suppress-debug-prints.patch \
-	file://0019-ucm-imx93-config-env-Add-overlay-load-logics.patch \
-	file://0020-Update-ucm-imx93.dts.patch \
-	file://0021-compulab-imx9-Makefile-Remove-unused-stuff.patch \
-	file://0022-ucm-imx93-dts-Enable-pinctrl_usdhc1-in-spl.patch \
-	file://0023-ucm-imx93-dts-mipi-Fix-mipi-dsi-timing-issue.patch \
-	file://0024-ucm-imx93-config-Set-boot-targets-order-usb0-mmc1-mm.patch \
-	file://0025-ucm-imx93-config-Fix-ulfdt-after-overlay-support.patch \
-	file://0026-ucm-imx93-dts-Add-som-and-sb-eeprom.patch \
-	file://0027-ucm-imx93-Add-eeprom-access-support.patch \
-	file://0028-ucm-imx93-Read-both-mac-addresses-from-the-som-eepro.patch \
-	file://0029-ucm-imx93-dts-Add-ethernet-aliases.patch \
-	file://0030-ucm-imx93-ethernet-Get-random-address-if-not-provide.patch \
-	file://0031-ucm-imx93-defconfig-Enable-USB_ETHER_ASIX88179-USB_E.patch \
 	file://ucm-imx93_defconfig \
 "
