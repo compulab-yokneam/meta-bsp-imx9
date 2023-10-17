@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-  <manifest>
-  <remote fetch="https://github.com/compulab-yokneam" name="compulab"/>
+ <manifest>
+ <remote fetch="https://github.com/compulab-yokneam" name="compulab"/>
 
-  <project name="meta-compulab" remote="compulab" revision="honister" path="sources/meta-compulab"/>
-  <project name="meta-compulab-bsp" remote="compulab" revision="honister" path="sources/meta-compulab-bsp"/>
-  <project name="meta-compulab-uefi" remote="compulab" revision="honister" path="sources/meta-compulab-uefi"/>
-  <project name="meta-bsp-imx9" remote="compulab" revision="kirkstone-2.2.0" path="sources/meta-bsp-imx9" >
-    <linkfile src="tools/compulab-setup-env" dest="compulab-setup-env" />
-  </project>
+    <project name="meta-compulab" remote="compulab" revision="62e51fa6266ff2c42e8c4bf0c85016a3a17f4496" path="sources/meta-compulab"/>
+    <project name="meta-compulab-bsp" remote="compulab" revision="89cb24c92520f59a591ce4263d8a652eb1b8b24b" path="sources/meta-compulab-bsp"/>
+    <project name="meta-compulab-uefi" remote="compulab" revision="0eb0922977a9b797b82c68410e428dafc639975b" path="sources/meta-compulab-uefi"/>
+    <project name="meta-bsp-imx9" remote="compulab" revision="kirkstone-2.2.0-yocto-r1.0" path="sources/meta-bsp-imx9" >
+        <linkfile src="tools/compulab-setup-env" dest="compulab-setup-env"/>
+    </project>
 
-  </manifest>
+ </manifest>
