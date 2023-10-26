@@ -1,5 +1,3 @@
-# Disclaimer
-
 # Configuring the build
 
 ## Setup Yocto environment
@@ -10,9 +8,9 @@ mkdir compulab-nxp-bsp && cd compulab-nxp-bsp
 ```
 * Set a CompuLab machine:
 
-| Machine | Command Line |
-|---|---|
-|ucm-imx93|```export MACHINE=ucm-imx93```|
+```
+export MACHINE=ucm-imx93
+```
 
 ## Initialize repo manifests
 
@@ -38,23 +36,19 @@ repo sync
 source compulab-setup-env -b build-${MACHINE}
 ```
 
-* Building the image:
-```
-bitbake -k imx-image-full
-```
+##  Building full rootfs image:
 
-* Building the bootloader file only:
+| Build Target | Build command | binary file location |
+|---|---|---|
+| full rootfs image |```bitbake -k imx-image-full```|```${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-image-full-${MACHINE}.wic.bz2```|
 
-| build command | binary file location |
-|---|---|
-|```bitbake -k imx-boot```|```${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-boot-tagged```|
 
 ## Deployment
-### Create a bootable sd card
+### Create a live SD card
 
-* Goto the `tmp/deploy/images/${MACHINE}` directory:
+* Goto the `${BUILDDIR}/tmp/deploy/images/${MACHINE}` directory:
 ```
-cd tmp/deploy/images/${MACHINE}
+cd ${BUILDDIR}/tmp/deploy/images/${MACHINE}
 ```
 
 * Deploy the image:
@@ -62,3 +56,10 @@ cd tmp/deploy/images/${MACHINE}
 zstd -dc imx-image-full-${MACHINE}.wic.zst > imx-image-full-${MACHINE}.wic
 sudo bmaptool copy --bmap imx-image-full-${MACHINE}.wic.bmap imx-image-full-${MACHINE}.wic /dev/sdX
 ```
+
+## Optional targets
+* Building bootloader only:
+
+| Build Target | Build command | binary file location |
+|---|---|---|
+| bootloader |```bitbake -k imx-boot```|```${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-boot-tagged```|
