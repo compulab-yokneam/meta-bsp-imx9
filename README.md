@@ -16,13 +16,13 @@ export MACHINE=ucm-imx93
 
 * NXP
 ```
-repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-kirkstone -m imx-5.15.71-2.2.0.xml
+repo init -u git://github.com/nxp-imx/imx-manifest.git -b imx-linux-mickledore -m imx-6.1.22-2.0.0.xml
 ```
 
 * CompuLab
 ```
 mkdir -p .repo/local_manifests
-wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/kirkstone-2.2.0/scripts/meta-bsp-imx9.xml
+wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/mickledore/scripts/meta-bsp-imx9.xml
 ```
 
 * Sync Them all
