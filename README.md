@@ -16,7 +16,7 @@ export MACHINE=ucm-imx93
 
 * NXP
 ```
-repo init -u git://github.com/nxp-imx/imx-manifest.git -b imx-linux-mickledore -m imx-6.1.22-2.0.0.xml
+repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-mickledore -m imx-6.1.22-2.0.0.xml
 ```
 
 * CompuLab
