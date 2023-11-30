@@ -1,5 +1,5 @@
 SRCBRANCH = "linux-compulab_v6.1.22"
 SRC_URI = "git://github.com/compulab-yokneam/linux-compulab;protocol=https;branch=${SRCBRANCH}"
-SRCREV = "ae504510dcdd631cd91341ed1a4cd3cea5e3c8c7"
+SRCREV = "842dd00078fae80c2d4c33b1cbcbf9419ce12edd"
 LINUX_VERSION = "6.1.22"
 KERNEL_CONFIG = "ucm-imx93_defconfig"
