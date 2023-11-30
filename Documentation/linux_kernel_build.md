@@ -1,11 +1,9 @@
-# Building Linux Kernel for CompuLab's i.MX93 products
+# Building CompuLab Linux Kernel for i.MX93 products
 
 ## Prerequisites
-It is up to developers to prepare the host machine; it requires:
-
 * [Setup Cross Compiler](https://github.com/compulab-yokneam/meta-bsp-imx8mp/blob/kirkstone/Documentation/toolchain.md#linaro-toolchain-how-to)
 
-## CompuLab Linux Kernel setup
+## Setup
 
 * WorkDir:
 ```
@@ -13,33 +11,30 @@ mkdir -p compulab-kernel/build && cd compulab-kernel
 ```
 
 * Set a CompuLab machine:
-
-| Machine | Command Line |
-|---|---|
-|ucm-imx93|```export MACHINE=ucm-imx93```|
+```
+export MACHINE=ucm-imx93
+```
 
 * Clone the source code:
 ```
-git clone -b linux-compulab_v6.1.1 https://github.com/compulab-yokneam/linux-compulab.git
-cd linux-compulab; mkdir -p lib/firmware
-wget -O - https://github.com/compulab-yokneam/bin/raw/linux-firmware/imx-sdma-20230404.tar.bz2 | tar -C lib/firmware/ -xjf -
+git clone -b linux-compulab_v6.1.22 https://github.com/compulab-yokneam/linux-compulab.git
+cd linux-compulab/
 ```
 
-## Compile the Kernel
-
+## Compile
 * Apply the default CompuLab config:
 ```
-make ${MACHINE}_defconfig compulab.config
+make ${MACHINE}_defconfig compulab.config O=../build/
 ```
 
-* Ussue menuconfig on order to change the default CompuLab configuration:
+* if you want to change the default CompuLab configuration run:
 ```
-make menuconfig
+make menuconfig O=../build/
 ```
 
-* Build the kernel
+* Build
 ```
-nice make -j`nproc`
+make -j`nproc` O=../build/
 ```
 
 * [Deploy the CompuLab Linux Kernel to CompuLab devices](https://github.com/compulab-yokneam/Documentation/blob/master/etc/linux_kernel_deployment.md#create-deb-package)
