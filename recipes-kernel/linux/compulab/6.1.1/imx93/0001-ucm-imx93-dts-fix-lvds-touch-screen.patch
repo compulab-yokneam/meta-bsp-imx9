@@ -1,0 +1,115 @@
+From 8f2d26a47bdc2613f1a19c6f4096023770b50a37 Mon Sep 17 00:00:00 2001
+From: yaakov entin <yaakov.entin@compulab.co.il>
+Date: Thu, 14 Dec 2023 13:11:40 +0200
+Subject: [PATCH 1/2] ucm-imx93: dts: fix lvds touch screen
+
+---
+ .../dts/compulab/ucm-imx93-lvds-overlay.dts   |  1 +
+ .../boot/dts/compulab/ucm-imx93-lvds.dtsi     |  9 +++++--
+ .../dts/compulab/ucm-imx93-mipi-overlay.dts   |  1 +
+ .../boot/dts/compulab/ucm-imx93-mipi.dtsi     |  9 +++++--
+ arch/arm64/boot/dts/compulab/ucm-imx93.dtsi   | 25 +------------------
+ 5 files changed, 17 insertions(+), 28 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93-lvds-overlay.dts b/arch/arm64/boot/dts/compulab/ucm-imx93-lvds-overlay.dts
+index 2a717645b8a8..5a426e60055b 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93-lvds-overlay.dts
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93-lvds-overlay.dts
+@@ -7,6 +7,7 @@
+ /plugin/;
+ 
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include "ucm-imx93-lvds.dtsi"
+ 
+ / {
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93-lvds.dtsi b/arch/arm64/boot/dts/compulab/ucm-imx93-lvds.dtsi
+index a2d46912e246..ff92ee848e83 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93-lvds.dtsi
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93-lvds.dtsi
+@@ -79,6 +79,11 @@ &ldb_phy {
+ 	status = "okay";
+ };
+ 
+-&goodix911_lvds {
+-    status = "okay";
++&goodix_ts {
++	pinctrl-0 = <&touchscreen0_pins>;
++	interrupt-parent = <&gpio2>;
++	interrupts = <20 IRQ_TYPE_LEVEL_HIGH>;
++	irq-gpios = <&gpio2 20 GPIO_ACTIVE_HIGH>;
++	reset-gpios = <&pca9555 7 GPIO_ACTIVE_HIGH>;
++	status = "okay";
+ };
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93-mipi-overlay.dts b/arch/arm64/boot/dts/compulab/ucm-imx93-mipi-overlay.dts
+index bd3e7e87e360..30e67ee4d2f1 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93-mipi-overlay.dts
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93-mipi-overlay.dts
+@@ -7,6 +7,7 @@
+ /plugin/;
+ 
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include "ucm-imx93-mipi.dtsi"
+ 
+ / {
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93-mipi.dtsi b/arch/arm64/boot/dts/compulab/ucm-imx93-mipi.dtsi
+index 567aee07fc7c..fc41fe71b73f 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93-mipi.dtsi
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93-mipi.dtsi
+@@ -100,6 +100,11 @@ &dphy {
+ 	status = "okay";
+ };
+ 
+-&goodix911_mipi {
+-    status = "okay";
++&goodix_ts {
++	pinctrl-0 = <&touchscreen1_pins>;
++	interrupt-parent = <&gpio2>;
++	interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;
++	irq-gpios = <&gpio2 21 GPIO_ACTIVE_HIGH>;
++	reset-gpios = <&pca9555 5 GPIO_ACTIVE_HIGH>;
++	status = "okay";
+ };
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi b/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
+index 3ba953735ec3..c82d31402618 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
+@@ -496,33 +496,10 @@ eeprom@54 {
+ 		pagesize = <16>;
+ 	};
+ 
+-	goodix911_lvds: goodix@5d {
++	goodix_ts: goodix@5d {
+ 		compatible = "goodix,gt911";
+ 		reg = <0x5d>;
+-
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&touchscreen0_pins>;
+-
+-		interrupt-parent = <&gpio2>;
+-		interrupts = <20 IRQ_TYPE_LEVEL_HIGH>;
+-		irq-gpios = <&gpio2 20 GPIO_ACTIVE_HIGH>;
+-
+-		reset-gpios = <&pca9555 7 GPIO_ACTIVE_HIGH>;
+-		status = "disabled";
+-	};
+-
+-	goodix911_mipi: goodix@5d {
+-		compatible = "goodix,gt911";
+-		reg = <0x5d>;
+-
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&touchscreen1_pins>;
+-
+-		interrupt-parent = <&gpio2>;
+-		interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;
+-		irq-gpios = <&gpio2 21 GPIO_ACTIVE_HIGH>;
+-
+-		reset-gpios = <&pca9555 5 GPIO_ACTIVE_HIGH>;
+ 		status = "disabled";
+ 	};
+ 
+-- 
+2.34.1
+

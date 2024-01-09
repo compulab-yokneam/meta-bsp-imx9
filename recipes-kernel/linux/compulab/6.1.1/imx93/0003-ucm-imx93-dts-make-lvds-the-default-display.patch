@@ -1,0 +1,63 @@
+From 12a9d0931bc8aa43621657be8c53b84d03c8c905 Mon Sep 17 00:00:00 2001
+From: yaakov entin <yaakov.entin@compulab.co.il>
+Date: Mon, 18 Dec 2023 08:33:28 +0200
+Subject: [PATCH] ucm-imx93 dts: make lvds the default display instead of mipi
+
+---
+ arch/arm64/boot/dts/compulab/Makefile                         | 2 +-
+ .../dts/compulab/{ucm-imx93-lvds.dts => ucm-imx93-mipi.dts}   | 4 ++--
+ arch/arm64/boot/dts/compulab/ucm-imx93.dts                    | 4 ++--
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+ rename arch/arm64/boot/dts/compulab/{ucm-imx93-lvds.dts => ucm-imx93-mipi.dts} (67%)
+
+diff --git a/arch/arm64/boot/dts/compulab/Makefile b/arch/arm64/boot/dts/compulab/Makefile
+index 5893bfeef869..04b0a141d196 100644
+--- a/arch/arm64/boot/dts/compulab/Makefile
++++ b/arch/arm64/boot/dts/compulab/Makefile
+@@ -54,7 +54,7 @@ dtb-$(CONFIG_ARCH_MXC) += som-imx8m-plus-hdmi-overlay.dtbo
+ # i.MX9
+ dtb-$(CONFIG_SOC_IMX9) += ucm-imx93.dtb
+ dtb-$(CONFIG_SOC_IMX9) += ucm-imx93-headless.dtb
+-dtb-$(CONFIG_SOC_IMX9) += ucm-imx93-lvds.dtb
++dtb-$(CONFIG_SOC_IMX9) += ucm-imx93-mipi.dtb
+ dtb-$(CONFIG_SOC_IMX9) += ucm-imx93-mipi-csi.dtb
+ dtb-$(CONFIG_SOC_IMX9) += ucm-imx93-eb-eth.dtb
+ dtb-$(CONFIG_SOC_IMX9) += ucm-imx93-eb-audimx9.dtb
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93-lvds.dts b/arch/arm64/boot/dts/compulab/ucm-imx93-mipi.dts
+similarity index 67%
+rename from arch/arm64/boot/dts/compulab/ucm-imx93-lvds.dts
+rename to arch/arm64/boot/dts/compulab/ucm-imx93-mipi.dts
+index 6a8eee754c3b..ae61d23704a2 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93-lvds.dts
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93-mipi.dts
+@@ -6,9 +6,9 @@
+ /dts-v1/;
+ 
+ #include "ucm-imx93.dtsi"
+-#include "ucm-imx93-lvds.dtsi"
++#include "ucm-imx93-mipi.dtsi"
+ 
+ / {
+-	model = "CompuLab UCM-i.MX93 board, build-in-lvds";
++	model = "CompuLab UCM-i.MX93 board, build-in-mipi";
+ 	compatible = "compulab,ucm-imx93", "fsl,imx93";
+ };
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93.dts b/arch/arm64/boot/dts/compulab/ucm-imx93.dts
+index ae61d23704a2..6a8eee754c3b 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93.dts
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93.dts
+@@ -6,9 +6,9 @@
+ /dts-v1/;
+ 
+ #include "ucm-imx93.dtsi"
+-#include "ucm-imx93-mipi.dtsi"
++#include "ucm-imx93-lvds.dtsi"
+ 
+ / {
+-	model = "CompuLab UCM-i.MX93 board, build-in-mipi";
++	model = "CompuLab UCM-i.MX93 board, build-in-lvds";
+ 	compatible = "compulab,ucm-imx93", "fsl,imx93";
+ };
+-- 
+2.34.1
+

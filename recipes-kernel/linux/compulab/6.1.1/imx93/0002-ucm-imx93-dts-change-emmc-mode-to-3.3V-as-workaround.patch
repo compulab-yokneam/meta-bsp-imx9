@@ -1,0 +1,25 @@
+From c3571a7fc616b73d03738caf3be9e1cbf21e3411 Mon Sep 17 00:00:00 2001
+From: yaakov entin <yaakov.entin@compulab.co.il>
+Date: Sun, 17 Dec 2023 12:35:42 +0200
+Subject: [PATCH 2/2] ucm-imx93 dts: change emmc mode to 3.3V as workaround for
+ Kingston emmc
+
+---
+ arch/arm64/boot/dts/compulab/ucm-imx93.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi b/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
+index c82d31402618..5b50edca8e03 100644
+--- a/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
++++ b/arch/arm64/boot/dts/compulab/ucm-imx93.dtsi
+@@ -609,6 +609,7 @@ &usdhc1 {
+ 	pinctrl-2 = <&pinctrl_usdhc1>;
+ 	bus-width = <8>;
+ 	non-removable;
++	no-1-8-v;
+ 	status = "okay";
+ };
+ 
+-- 
+2.34.1
+
