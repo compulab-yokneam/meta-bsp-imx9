@@ -2,6 +2,8 @@
 
 ## Setup Yocto environment
 
+* Preferred OS for build host is Ubuntu 22.04. It can be easily utilized with Docker: https://github.com/compulab-yokneam/yocker
+
 * WorkDir:
 ```
 mkdir compulab-nxp-bsp && cd compulab-nxp-bsp
