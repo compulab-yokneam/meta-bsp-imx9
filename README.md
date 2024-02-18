@@ -1,8 +1,6 @@
 # Configuring the build
-
+**Preferred OS for build host is Ubuntu 22.04. It can be utilized with Docker: https://github.com/compulab-yokneam/yocker**
 ## Setup Yocto environment
-
-* Preferred OS for build host is Ubuntu 22.04. It can be easily utilized with Docker: https://github.com/compulab-yokneam/yocker
 
 * WorkDir:
 ```
