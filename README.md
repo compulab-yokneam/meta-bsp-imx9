@@ -38,28 +38,32 @@ source compulab-setup-env -b build-${MACHINE}
 
 ##  Building full rootfs image:
 
-| Build Target | Build command | binary file location |
-|---|---|---|
-| full rootfs image |```bitbake -k imx-image-full```|```${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-image-full-${MACHINE}.wic.bz2```|
+* Build command
+```
+bitbake -k imx-image-full
+```
+* binary file location :
+`${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-image-full-${MACHINE}.wic.bz2`
 
 
 ## Deployment
 ### Create a live SD card
 
-* Goto the `${BUILDDIR}/tmp/deploy/images/${MACHINE}` directory:
 ```
 cd ${BUILDDIR}/tmp/deploy/images/${MACHINE}
 ```
 
 * Deploy the image:
 ```
-zstd -dc imx-image-full-${MACHINE}.wic.zst > imx-image-full-${MACHINE}.wic
-sudo bmaptool copy --bmap imx-image-full-${MACHINE}.wic.bmap imx-image-full-${MACHINE}.wic /dev/sdX
+sudo zstd -dc imx-image-full-${MACHINE}-*.rootfs.wic.zst | sudo dd bs=1M status=progress of=/dev/sdX
 ```
 
 ## Optional targets
 * Building bootloader only:
 
-| Build Target | Build command | binary file location |
-|---|---|---|
-| bootloader |```bitbake -k imx-boot```|```${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-boot-tagged```|
+* Build command
+```
+bitbake -k imx-boot
+```
+* binary file location :
+`${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-boot-tagged`
