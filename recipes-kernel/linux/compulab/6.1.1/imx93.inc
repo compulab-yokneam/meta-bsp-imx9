@@ -2,6 +2,7 @@ SRC_URI:append = " \
 	file://defconfig \
 	file://linux-firmware-sdma.cfg \
 	file://0001-Revert-ucm-imx93-dts-implement-support-for-LVDS-back.patch \
+	file://0002-ucm-imx93-dts-calibrate-rtc.patch \
 "
 
 SRC_URI:append:ucm-imx93 = " https://github.com/compulab-yokneam/bin/raw/linux-firmware/imx-sdma-20230404.tar.bz2;name=imx-sdma-firmware "
