@@ -9,6 +9,9 @@ mkdir compulab-nxp-bsp && cd compulab-nxp-bsp
 * Set a CompuLab machine:
 
 ```
+export MACHINE=mcm-imx93
+```
+```
 export MACHINE=ucm-imx93
 ```
 
@@ -22,11 +25,7 @@ repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-mickledore
 * CompuLab
 ```
 mkdir -p .repo/local_manifests
-wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/mickledore/scripts/meta-bsp-imx9.xml
-```
-
-* Sync Them all
-```
+wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/mickledore-6.1.55/scripts/meta-bsp-imx9.xml
 repo sync
 ```
 ## Setup build environment

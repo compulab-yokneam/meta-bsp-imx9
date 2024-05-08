@@ -116,4 +116,4 @@ PACKAGESPLITFUNCS:remove = "split_kernel_module_packages"
 
 FILES:${KERNEL_PACKAGE_NAME}-modules = "/lib/modules/ /etc/"
 
-COMPATIBLE_MACHINE = "ucm-imx93"
+COMPATIBLE_MACHINE = "compulab-mx93"
