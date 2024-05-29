@@ -19,13 +19,13 @@ export MACHINE=ucm-imx93
 
 * NXP
 ```
-repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-mickledore -m imx-6.1.55-2.2.0.xml
+repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-nanbield -m imx-6.6.3-1.0.0.xml
 ```
 
 * CompuLab
 ```
 mkdir -p .repo/local_manifests
-wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/mickledore-6.1.55/scripts/meta-bsp-imx9.xml
+wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/nanbield/scripts/meta-bsp-imx9.xml
 repo sync
 ```
 ## Setup build environment
