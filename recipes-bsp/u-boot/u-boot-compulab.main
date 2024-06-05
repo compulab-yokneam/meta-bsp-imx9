@@ -8,9 +8,6 @@ LIC_FILES_CHKSUM = "file://Licenses/gpl-2.0.txt;md5=b234ee4d69f5fce4486a80fdaf4a
 
 require u-boot-compulab_${PV}.inc
 
-FILESEXTRAPATHS:prepend := "${THISDIR}/compulab/${PV}/imx93:"
-require compulab/${PV}/imx93.inc
-
 DEPENDS += " \
     bc-native \
     bison-native \
