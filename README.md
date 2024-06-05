@@ -25,7 +25,7 @@ repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-nanbield -
 * CompuLab
 ```
 mkdir -p .repo/local_manifests
-wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/nanbield/scripts/meta-bsp-imx9.xml
+wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/sbc-mcm-imx93-r1.0/scripts/meta-bsp-imx9.xml
 repo sync
 ```
 ## Setup build environment
