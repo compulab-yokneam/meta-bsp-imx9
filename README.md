@@ -1,64 +1,43 @@
-# Configuring the build
+## Supported Compulab Machines 
+[MCM-iMX93 - i.MX93 SMD System-on-Module](https://www.compulab.com/products/computer-on-modules/mcm-imx93-nxp-i-mx-93-som-smd-system-on-module/)
 
-## Setup Yocto environment
-
-* WorkDir:
+**Preferred OS for build host is Ubuntu 22.04. It can be utilized with Docker: https://github.com/compulab-yokneam/yocker**
+## Initialize repo manifests
+* NXP:
 ```
 mkdir compulab-nxp-bsp && cd compulab-nxp-bsp
+repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-nanbield -m imx-6.6.3-1.0.0.xml
 ```
-* Set a CompuLab machine:
-
+* CompuLab:
 ```
-export MACHINE=mcm-imx93
+mkdir -p .repo/local_manifests
+wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/sbc-mcm-imx93-r1.0/scripts/meta-bsp-imx9.xml
+repo sync
 ```
+## Setup Yocto build environment
+* Set a machine that matches your SoM:
 ```
 export MACHINE=ucm-imx93
 ```
-
-## Initialize repo manifests
-
-* NXP
 ```
-repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-nanbield -m imx-6.6.3-1.0.0.xml
+export MACHINE=mcm-imx93
 ```
-
-* CompuLab
-```
-mkdir -p .repo/local_manifests
-wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/nanbield/scripts/meta-bsp-imx9.xml
-repo sync
-```
-## Setup build environment
-
-* Initialize the build environment:
+* Initialize the environment:
 ```
 source compulab-setup-env -b build-${MACHINE}
 ```
-
 ##  Building full rootfs image:
-
-| Build Target | Build command | binary file location |
-|---|---|---|
-| full rootfs image |```bitbake -k imx-image-full```|```${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-image-full-${MACHINE}.wic.bz2```|
-
-
-## Deployment
-### Create a live SD card
-
-* Goto the `${BUILDDIR}/tmp/deploy/images/${MACHINE}` directory:
+* Build command
 ```
-cd ${BUILDDIR}/tmp/deploy/images/${MACHINE}
+bitbake -k imx-image-full
+image_location=${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-image-full-${MACHINE}*.wic.zst
 ```
-
-* Deploy the image:
+* Deploy the image to a live SD card
 ```
-zstd -dc imx-image-full-${MACHINE}.wic.zst > imx-image-full-${MACHINE}.wic
-sudo bmaptool copy --bmap imx-image-full-${MACHINE}.wic.bmap imx-image-full-${MACHINE}.wic /dev/sdX
+sudo zstd -dc $image_location | sudo dd bs=1M status=progress of=/dev/sdX
 ```
-
-## Optional targets
-* Building bootloader only:
-
-| Build Target | Build command | binary file location |
-|---|---|---|
-| bootloader |```bitbake -k imx-boot```|```${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-boot-tagged```|
+## Optional target - bootloader
+```
+bitbake -k imx-boot
+bootloader_location=${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-boot-tagged
+```
