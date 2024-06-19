@@ -3,7 +3,7 @@
  <remote fetch="https://github.com/compulab-yokneam" name="compulab"/>
 
     <project name="meta-compulab" remote="compulab" revision="497179407e164e389693c66badef11ce211ccf14" path="sources/meta-compulab"/>
-    <project name="meta-compulab-bsp" remote="compulab" revision="1acb58a3852448d46223234e205bc86cf220134b" path="sources/meta-compulab-bsp"/>
+    <project name="meta-compulab-bsp" remote="compulab" revision="031f9ff532e6efd2a6aed5794e1d0b89a02eda8b" path="sources/meta-compulab-bsp"/>
     <project name="meta-compulab-uefi" remote="compulab" revision="a4725ce658f026ed654f4d9c80d2ad03eb7526a0" path="sources/meta-compulab-uefi"/>
     <project name="meta-bsp-imx9" remote="compulab" revision="sbc-mcm-imx93-r1.0" path="sources/meta-bsp-imx9" >
         <linkfile src="tools/compulab-setup-env" dest="compulab-setup-env"/>
