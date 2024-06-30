@@ -1,4 +1,9 @@
+## Supported Compulab Machines 
+[UCM-iMX93 - NXP iMX9 System-on-Module](https://www.compulab.com/products/computer-on-modules/ucm-imx93-nxp-i-mx9-som-system-on-module-computer/)
+[UCM-iMX93L - NXP iMX9 System-on-Module](https://www.compulab.com/products/computer-on-modules/ucm-imx93l-nxp-imx9-som-system-on-module/)
+
 # Configuring the build
+**Preferred OS for build host is Ubuntu 22.04. It can be utilized with Docker: https://github.com/compulab-yokneam/yocker**
 
 ## Setup Yocto environment
 
@@ -36,29 +41,24 @@ source compulab-setup-env -b build-${MACHINE}
 ```
 
 ##  Building full rootfs image:
-
-| Build Target | Build command | binary file location |
-|---|---|---|
-| full rootfs image |```bitbake -k imx-image-full```|```${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-image-full-${MACHINE}.wic.bz2```|
-
+* Build command 
+```
+bitbake -k imx-image-full
+```
+* binary file location: `${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-image-full-${MACHINE}.wic.bz2`
 
 ## Deployment
 ### Create a live SD card
-
-* Goto the `${BUILDDIR}/tmp/deploy/images/${MACHINE}` directory:
 ```
 cd ${BUILDDIR}/tmp/deploy/images/${MACHINE}
 ```
 
 * Deploy the image:
 ```
-zstd -dc imx-image-full-${MACHINE}.wic.zst > imx-image-full-${MACHINE}.wic
-sudo bmaptool copy --bmap imx-image-full-${MACHINE}.wic.bmap imx-image-full-${MACHINE}.wic /dev/sdX
+sudo zstd -dc imx-image-full-${MACHINE}-*.rootfs.wic.zst | sudo dd bs=1M status=progress of=/dev/sdd
 ```
 
 ## Optional targets
 * Building bootloader only:
-
-| Build Target | Build command | binary file location |
-|---|---|---|
-| bootloader |```bitbake -k imx-boot```|```${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-boot-tagged```|
+```bitbake -k imx-boot```
+* binary file location: `${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-boot-tagged`
