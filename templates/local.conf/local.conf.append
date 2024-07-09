@@ -8,3 +8,5 @@ CORE_IMAGE_EXTRA_INSTALL += " wireless-tools dhcpcd ifupdown wpa-supplicant ntp 
 CORE_IMAGE_EXTRA_INSTALL += " networkmanager modemmanager "
 DISTRO_FEATURES:remove = "sysvinit"
 INHERIT += "rm_work"
+RM_WORK_EXCLUDE += "linux-compulab u-boot-compulab"
+
