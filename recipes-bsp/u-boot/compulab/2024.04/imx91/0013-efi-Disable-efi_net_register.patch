@@ -1,0 +1,27 @@
+From 5834fb1b9c73c565ab087b7ccb4cc1290c0d5580 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Wed, 24 Jul 2024 13:02:11 +0300
+Subject: [PATCH] efi: Disable efi_net_register()
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ lib/efi_loader/efi_setup.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/lib/efi_loader/efi_setup.c b/lib/efi_loader/efi_setup.c
+index a610e032d2f..fc188ea4600 100644
+--- a/lib/efi_loader/efi_setup.c
++++ b/lib/efi_loader/efi_setup.c
+@@ -322,10 +322,12 @@ efi_status_t efi_init_obj_list(void)
+ 		if (ret != EFI_SUCCESS)
+ 			goto out;
+ 	}
++#if 0
+ #ifdef CONFIG_NETDEVICES
+ 	ret = efi_net_register();
+ 	if (ret != EFI_SUCCESS)
+ 		goto out;
++#endif
+ #endif
+ 	if (IS_ENABLED(CONFIG_ACPI)) {
+ 		ret = efi_acpi_register();

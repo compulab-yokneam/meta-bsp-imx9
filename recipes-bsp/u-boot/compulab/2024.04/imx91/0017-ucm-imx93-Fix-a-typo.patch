@@ -1,0 +1,25 @@
+From b83c9ed119d7d81189ebea459d0b955a9b024c2e Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Wed, 24 Jul 2024 19:09:01 +0300
+Subject: [PATCH 17/18] ucm-imx93: Fix a typo
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ board/compulab/ucm-imx93/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/board/compulab/ucm-imx93/Kconfig b/board/compulab/ucm-imx93/Kconfig
+index c3c60bdfc3b..6a88f0b049a 100644
+--- a/board/compulab/ucm-imx93/Kconfig
++++ b/board/compulab/ucm-imx93/Kconfig
+@@ -78,6 +78,6 @@ config SPL_LOAD_IMX_CONTAINER
+ 	default y
+ 
+ config	IMX_CONTAINER_CFG
+-	default "arch/arm/mach-imx/imx9/container.cfg
++	default "arch/arm/mach-imx/imx9/container.cfg"
+ 
+ endif
+-- 
+2.34.1
+

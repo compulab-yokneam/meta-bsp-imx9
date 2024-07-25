@@ -1,0 +1,32 @@
+From cfa96e313c083020b05167a5bbe11a52c61c1463 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Wed, 24 Jul 2024 12:39:35 +0300
+Subject: [PATCH] compulab:arch/arm/mach-imx/imx8m/clock_imx8mm.c
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/mach-imx/imx8m/clock_imx8mm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm/mach-imx/imx8m/clock_imx8mm.c b/arch/arm/mach-imx/imx8m/clock_imx8mm.c
+index b2d79ff529e..9222decb168 100644
+--- a/arch/arm/mach-imx/imx8m/clock_imx8mm.c
++++ b/arch/arm/mach-imx/imx8m/clock_imx8mm.c
+@@ -308,6 +308,7 @@ int intpll_configure(enum pll_clocks pll, ulong freq)
+ }
+ 
+ #define VIDEO_PLL_RATE 594000000U
++#define VIDEO_PLL_RATE 400000000U
+ 
+ void mxs_set_lcdclk(uint32_t base_addr, uint32_t freq)
+ {
+@@ -361,6 +362,9 @@ void enable_display_clk(unsigned char enable)
+ 
+ 		/* 27Mhz MIPI DPHY PLL ref from video PLL */
+ 		clock_set_target_val(MEDIA_MIPI_PHY1_REF_CLK_ROOT, CLK_ROOT_ON | CLK_ROOT_SOURCE_SEL(7) |CLK_ROOT_POST_DIV(CLK_ROOT_POST_DIV22));
++
++		/* 519.75Mhz LVDS PLL ref from video PLL */
++		clock_set_target_val(MEDIA_LDB_CLK_ROOT, CLK_ROOT_ON | CLK_ROOT_SOURCE_SEL(7) |CLK_ROOT_POST_DIV(CLK_ROOT_POST_DIV2));
+ 		clock_enable(CCGR_DISPMIX, true);
+ 	} else {
+ 		clock_enable(CCGR_DISPMIX, false);

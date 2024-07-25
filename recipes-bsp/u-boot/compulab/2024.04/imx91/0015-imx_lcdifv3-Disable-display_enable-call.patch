@@ -1,0 +1,29 @@
+From 88d40d69261d9e1ba1ef5ecd74f63893df1b61ad Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Wed, 24 Jul 2024 15:39:47 +0300
+Subject: [PATCH] imx_lcdifv3: Disable display_enable() call
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ drivers/video/nxp/imx/imx_lcdifv3.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/video/nxp/imx/imx_lcdifv3.c b/drivers/video/nxp/imx/imx_lcdifv3.c
+index 6ef4398649f..02797bb7b3a 100644
+--- a/drivers/video/nxp/imx/imx_lcdifv3.c
++++ b/drivers/video/nxp/imx/imx_lcdifv3.c
+@@ -350,12 +350,14 @@ static int lcdifv3_video_probe(struct udevice *dev)
+ 
+ 	lcdifv3_of_parse_thres(dev);
+ 
++#if 0
+ 	/* This is the LVDS method */
+ 	ret = display_enable(priv->disp_dev, 32, &timings);
+ 	if (ret) {
+ 		debug("%s: display enable error %d\n", __func__, ret);
+ 		return ret;
+ 	}
++#endif
+ 
+ 	if (priv->disp_dev) {
+ #if IS_ENABLED(CONFIG_VIDEO_BRIDGE)

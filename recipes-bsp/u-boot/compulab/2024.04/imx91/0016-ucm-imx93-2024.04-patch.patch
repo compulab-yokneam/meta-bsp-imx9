@@ -1,0 +1,122 @@
+From 8f935cad44d506717a5db5417ff5f3543a7c6d85 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Wed, 24 Jul 2024 16:26:15 +0300
+Subject: [PATCH] ucm-imx93: 2024.04 patch
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/ucm-imx93.dts           |  1 -
+ board/compulab/ucm-imx93/Kconfig     |  7 +++++++
+ board/compulab/ucm-imx93/spl.c       |  9 ++++++---
+ board/compulab/ucm-imx93/ucm-imx93.c | 10 +++++++---
+ 4 files changed, 20 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm/dts/ucm-imx93.dts b/arch/arm/dts/ucm-imx93.dts
+index cd118aa08f3..6b4fc2da022 100644
+--- a/arch/arm/dts/ucm-imx93.dts
++++ b/arch/arm/dts/ucm-imx93.dts
+@@ -17,7 +17,6 @@
+ 	};
+ 
+ 	aliases {
+-		i2c8 = &flexio_i2c_master;
+ 		ethernet0 = &eqos;
+ 		ethernet1 = &fec;
+ 	};
+diff --git a/board/compulab/ucm-imx93/Kconfig b/board/compulab/ucm-imx93/Kconfig
+index f39af4db5c2..c3c60bdfc3b 100644
+--- a/board/compulab/ucm-imx93/Kconfig
++++ b/board/compulab/ucm-imx93/Kconfig
+@@ -73,4 +73,11 @@ config UCM_IMX93_LPDDR4X
+ 	select IMX9_LPDDR4X
+ 	help
+ 	  Select the LPDDR4X timing and 0.6V VDDQ
++
++config SPL_LOAD_IMX_CONTAINER
++	default y
++
++config	IMX_CONTAINER_CFG
++	default "arch/arm/mach-imx/imx9/container.cfg
++
+ endif
+diff --git a/board/compulab/ucm-imx93/spl.c b/board/compulab/ucm-imx93/spl.c
+index 1a0e0122e99..8f3027698bf 100644
+--- a/board/compulab/ucm-imx93/spl.c
++++ b/board/compulab/ucm-imx93/spl.c
+@@ -14,6 +14,7 @@
+ #include <asm/global_data.h>
+ #include <asm/io.h>
+ #include <asm/arch/imx93_pins.h>
++#include <asm/arch/mu.h>
+ #include <asm/arch/clock.h>
+ #include <asm/arch/sys_proto.h>
+ #include <asm/mach-imx/boot_mode.h>
+@@ -21,6 +22,8 @@
+ #include <asm/arch-mx7ulp/gpio.h>
+ #include <asm/mach-imx/syscounter.h>
+ #include <asm/mach-imx/ele_api.h>
++#include <asm/mach-imx/syscounter.h>
++#include <asm/sections.h>
+ #include <dm/uclass.h>
+ #include <dm/device.h>
+ #include <dm/uclass-internal.h>
+@@ -31,6 +34,7 @@
+ #include <asm/arch/ddr.h>
+ #include <power/pmic.h>
+ #include <power/pca9450.h>
++#include <power/pf0900.h>
+ #include <asm/arch/trdc.h>
+ #include <serial.h>
+ #include "ddr/ddr.h"
+@@ -61,7 +65,7 @@ void spl_board_init(void)
+ 
+ 	puts("Normal Boot\n");
+ 
+-	ret = ahab_start_rng();
++	ret = ele_start_rng();
+ 	if (ret)
+ 		printf("Fail to start RNG: %d\n", ret);
+ }
+@@ -110,7 +114,6 @@ int power_init_board(void)
+ }
+ #endif
+ 
+-extern int imx9_probe_mu(void *ctx, struct event *event);
+ void board_init_f(ulong dummy)
+ {
+ 	int ret;
+@@ -128,7 +131,7 @@ void board_init_f(ulong dummy)
+ 
+ 	preloader_console_init();
+ 
+-	ret = imx9_probe_mu(NULL, NULL);
++	ret = imx9_probe_mu();
+ 	if (ret) {
+ 		printf("Fail to init ELE API\n");
+ 	} else {
+diff --git a/board/compulab/ucm-imx93/ucm-imx93.c b/board/compulab/ucm-imx93/ucm-imx93.c
+index 3695ca0f460..279fac6257a 100644
+--- a/board/compulab/ucm-imx93/ucm-imx93.c
++++ b/board/compulab/ucm-imx93/ucm-imx93.c
+@@ -287,14 +287,18 @@ int ft_board_setup(void *blob, struct bd_info *bd)
+ 	/* todo - below is bad code because it rely on linux device tree which is fragile. eliminate ASAP! */
+ 	if (sdram_size < 0x80000000) {
+ 		printf("disable ethosu because its address is mapped above 1GB\n");
+-		disable_npu_nodes(blob);
++		// disable_npu_nodes(blob);
+ 	}
+ 	if (sdram_size < 0x40000000) {
+ 		printf("disable M33 because its shared address is mapped above 500MB, you can enable it after changing this address in M33 code and in Linux device tree\n");
+-		disable_m33_nodes(blob);
++		// disable_m33_nodes(blob);
+ 		printf("disable ELE because its shared address is mapped above 500MB\n");
+-		disable_ele_nodes(blob);
++		// disable_ele_nodes(blob);
+ 	}
+ 	return 0;
+ }
+ #endif
++int print_cpuinfo(void)
++{
++	return 0;
++}
