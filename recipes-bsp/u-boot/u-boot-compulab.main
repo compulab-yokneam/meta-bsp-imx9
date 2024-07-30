@@ -1,4 +1,4 @@
-DESCRIPTION = "CompuLab i.MX8 U-Boot"
+DESCRIPTION = "CompuLab i.MX9 U-Boot"
 require recipes-bsp/u-boot/u-boot.inc
 
 PROVIDES += "u-boot"
