@@ -1,12 +1,9 @@
-SRC_URI = "git://github.com/nxp-imx/linux-imx.git;protocol=https;branch=${SRCBRANCH}"
-KBRANCH = "${SRCBRANCH}"
-SRCBRANCH = "lf-6.6.y"
+LICENSE = "GPL-2.0-or-later"
+SRCBRANCH = "linux-compulab_v6.6.23"
+SRC_URI = "git://github.com/compulab-yokneam/linux-compulab;protocol=https;branch=${SRCBRANCH}"
+SRCREV = "${AUTOREV}"
+LINUX_VERSION = "6.6.23"
 LOCALVERSION = "-lts-next"
-SRCREV = "b586a521770e508d1d440ccb085c7696b9d6d387"
 COMPATIBLE_MACHINE = "compulab-mx91"
 KERNEL_CONFIG = "compulab-mx93_defconfig"
 
-# Merged from the bbappend
-# FILESEXTRAPATHS:prepend := "${THISDIR}/compulab/6.6.23/imx93:"
-
-# require compulab/6.6.23/imx93.inc
