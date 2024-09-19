@@ -4,6 +4,5 @@ SRC_URI = "git://github.com/compulab-yokneam/linux-compulab;protocol=https;branc
 SRCREV = "${AUTOREV}"
 LINUX_VERSION = "6.6.23"
 LOCALVERSION = "-lts-next"
-COMPATIBLE_MACHINE = "compulab-mx91"
 KERNEL_CONFIG = "compulab-mx93_defconfig"
 
