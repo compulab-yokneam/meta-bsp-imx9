@@ -21,12 +21,12 @@ repo sync
 ```
 ## Setup Yocto build environment
 * Set a machine that matches your SoM:
-```
-export MACHINE=ucm-imx93
-```
-```
-export MACHINE=mcm-imx93
-```
+
+| Machine | Command line |
+|---|---|
+|ucm-imx93|export MACHINE=ucm-imx93|
+|mcm-imx93|export MACHINE=mcm-imx93|
+
 * Initialize the environment:
 ```
 source compulab-setup-env build-${MACHINE}
