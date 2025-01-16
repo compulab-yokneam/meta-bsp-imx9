@@ -3,6 +3,5 @@ LIC_FILES_CHKSUM = "file://Licenses/gpl-2.0.txt;md5=b234ee4d69f5fce4486a80fdaf4a
 
 SRCBRANCH = "u-boot-compulab_v2024.04"
 SRC_URI = "git://github.com/compulab-yokneam/u-boot-compulab;protocol=https;branch=${SRCBRANCH}"
-SRCREV = "${AUTOREV}"
-
+SRCREV = "5001370266f5c69aac11adf7f096ecf509727a8e"
 DEPENDS += " python3-setuptools-native "

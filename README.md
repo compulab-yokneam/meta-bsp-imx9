@@ -1,10 +1,7 @@
 # Disclaimer                                                                                                                                                                                                                                                                    
 
-| !IMPORTANT! | This branch is not a release |
-|---|---|
-
 ## Supported Compulab Products
-[MCM-iMX93 - i.MX93 SMD System-on-Module](https://www.compulab.com/products/computer-on-modules/mcm-imx93-nxp-i-mx-93-som-smd-system-on-module/)
+[UCM-iMX93 - i.MX93 System-on-Module](https://www.compulab.com/products/computer-on-modules/ucm-imx93-nxp-i-mx9-som-system-on-module-computer/)
 
 **Preferred OS for build host is Ubuntu 22.04. It can be utilized with Docker: https://github.com/compulab-yokneam/yocker**
 ## Initialize repo manifests
@@ -16,7 +13,7 @@ repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-scarthgap 
 * CompuLab:
 ```
 mkdir -p .repo/local_manifests
-wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/scarthgap/scripts/meta-bsp-imx9.xml
+wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/EVAL-UCM-iMX93-3.0/scripts/meta-bsp-imx9.xml
 repo sync
 ```
 ## Setup Yocto build environment
