@@ -21,7 +21,6 @@ S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
 
 inherit fsl-u-boot-localversion
-inherit uuu_bootloader_tag
 
 LOCALVERSION = "-compulab"
 
