@@ -1,0 +1,25 @@
+From 8293cd192d972e176280dd981ee8a52add24aed9 Mon Sep 17 00:00:00 2001
+From: yaakov <yaakov.entin@compulab.co.il>
+Date: Wed, 22 Jan 2025 17:29:20 +0200
+Subject: [PATCH] wifi_mod_para.conf: change fw to enable sdio BT
+
+---
+ nxp/wifi_mod_para.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/nxp/wifi_mod_para.conf b/nxp/wifi_mod_para.conf
+index cfdc16f..df4664c 100644
+--- a/nxp/wifi_mod_para.conf
++++ b/nxp/wifi_mod_para.conf
+@@ -34,7 +34,7 @@ SD8997 = {
+ 	ps_mode=1
+ 	auto_ds=1
+ 	host_mlme=1
+-	fw_name=nxp/sdiouart8997_combo_v4.bin
++	fw_name=mrvl/sdsd8997_combo_v4.bin
+ }
+ 
+ #SD8997_1 = {
+-- 
+2.34.1
+
