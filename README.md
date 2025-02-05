@@ -16,7 +16,7 @@ repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-scarthgap 
 * CompuLab:
 ```
 mkdir -p .repo/local_manifests
-wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/scarthgap/scripts/meta-bsp-imx9.xml
+wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/EVAL-MCM-iMX93-2.0/scripts/meta-bsp-imx9.xml
 repo sync
 ```
 ## Setup Yocto build environment
@@ -59,8 +59,14 @@ sudo uuu -v -b emmc_all imx-boot-tagged mx-image-full-${MACHINE}.wic.zst
 * Connect USB cable from host type A to SoM Serial Download microUSB
 * Short SDP boot jumper
 * Power on
-## Optional target - bootloader only
+## Optional target
+### Bootloader
 ```
 bitbake -k imx-boot
-bootloader_location=${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-boot-tagged
+bootloader_location=${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-boot
+```
+### Linux kernel
+```
+bitbake -k linux-compulab
+Image and *.dtb files will be in - ${BUILDDIR}/tmp/deploy/images/${MACHINE}/
 ```
