@@ -1,4 +1,4 @@
-# Disclaimer                                                                                                                                                                                                                                                                    
+# Disclaimer
 
 | !IMPORTANT! | This branch is not a release |
 |---|---|
@@ -20,25 +20,31 @@ wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/
 repo sync
 ```
 ## Setup Yocto build environment
-* Set a machine that matches your SoM:
+* Set a machine that matches your board:
 
 | Machine | Command line |
 |---|---|
 |ucm-imx93|export MACHINE=ucm-imx93|
 |mcm-imx93|export MACHINE=mcm-imx93|
+|iot-link|export MACHINE=iot-link|
 
-* Initialize the environment:
+* Set up the environment whether new or already existing:
 ```
 source compulab-setup-env build-${MACHINE}
 ```
-##  Building full rootfs image:
-* Build command
+##  Building rootfs image:
+* For EVK run:
 ```
 bitbake -k imx-image-full
 image_location=${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-image-full-${MACHINE}*.wic.zst
 ```
+* For IOT-LINK run:
+```
+bitbake -k core-image-base
+image_location=${BUILDDIR}/tmp/deploy/images/${MACHINE}/core-image-base-${MACHINE}.rootfs-*.wic.zst
+```
 ## Deployment
-### Bootable sd card method
+### Bootable sd card method - not for IOT-LINK
 #### Host Machine ####
 ```
 sudo zstd -dc $image_location | sudo dd bs=1M status=progress of=/dev/sdX
@@ -57,7 +63,7 @@ sudo uuu -v -b emmc_all imx-boot-tagged mx-image-full-${MACHINE}.wic.zst
 #### SoM ####
 * Power off
 * Connect USB cable from host type A to SoM Serial Download microUSB
-* Short SDP boot jumper
+* In EVK - short SDP boot jumper
 * Power on
 ## Optional target - bootloader only
 ```

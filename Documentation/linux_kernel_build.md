@@ -12,13 +12,13 @@ It is up to developers to prepare the host machine; it requires:
 mkdir -p compulab-kernel/build && cd compulab-kernel
 ```
 
-* Set a machine that matches your SoM:
-```
-export MACHINE=ucm-imx93
-```
-```
-export MACHINE=mcm-imx93
-```
+* Set a machine that matches your board:
+
+| Machine | Command line |
+|---|---|
+|ucm-imx93|export MACHINE=ucm-imx93|
+|mcm-imx93|export MACHINE=mcm-imx93|
+|iot-link|export MACHINE=iot-link|
 
 * Clone the source code:
 ```
