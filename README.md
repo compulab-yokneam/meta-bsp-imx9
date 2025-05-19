@@ -40,8 +40,8 @@ image_location=${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-image-full-${MACHINE
 ```
 * For IOT-LINK run:
 ```
-bitbake -k core-image-base
-image_location=${BUILDDIR}/tmp/deploy/images/${MACHINE}/core-image-base-${MACHINE}.rootfs-*.wic.zst
+bitbake -k fsl-image-network-full-cmdline
+image_location=${BUILDDIR}/tmp/deploy/images/${MACHINE}/fsl-image-network-full-cmdline-${MACHINE}.rootfs-*.wic.zst
 ```
 ## Deployment
 ### Bootable sd card method - not for IOT-LINK
