@@ -40,6 +40,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/compulab/${PV}/imx93:"
 
 require compulab/${PV}/imx93.inc
 
+LINUX_VERSION_EXTENSION = "-${CL_RELEASE}"
 
 do_compile:prepend() {
     export SOURCE_DATE_EPOCH=$(date +%s)
@@ -97,8 +98,6 @@ FILES:linux-headers = "${exec_prefix}/src/linux* ${nonarch_base_libdir}/modules/
 
 KERNEL_SPLIT_MODULES = "0"
 
-#PACKAGESPLITFUNCS:remove = "split_kernel_module_packages"
+EXTRA_OEMAKE += "debug=n  DEBUG=0 "
 
-#FILES:${KERNEL_PACKAGE_NAME}-modules = "/lib/modules/ /etc/"
-
-#FILES:${PN} += "${nonarch_base_libdir}/modules/${KERNEL_VERSION}/build"
+rm_work[noexec] = "1"
