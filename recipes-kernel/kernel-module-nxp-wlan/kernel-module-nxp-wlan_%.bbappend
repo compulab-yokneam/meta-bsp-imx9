@@ -1,10 +1,13 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-SRC_URI += " file://moal.modules-load.conf "
-SRC_URI:append:iot-link = " file://moal.modprobe.conf.nxpiw612"
-SRC_URI:append:default = " file://moal.modprobe.conf"
+SRC_URI += " \
+    file://moal.modules-load.conf \
+    file://moal.modprobe.conf \
+"
 
-FILES:${PN} += " \
+PACKAGES += "${PN}-cfg"
+
+FILES:${PN}-cfg += " \
     /etc/modules-load.d/moal.conf \
     /etc/modprobe.d/moal.conf \
 "
@@ -12,11 +15,8 @@ FILES:${PN} += " \
 do_install:append() {
     install -d ${D}/etc/modules-load.d
     install -m 0644 ${WORKDIR}/moal.modules-load.conf ${D}/etc/modules-load.d/moal.conf
-
     install -d ${D}/etc/modprobe.d
-	if [ -f "${WORKDIR}/moal.modprobe.conf.nxpiw612" ]; then
-        install -m 0644 ${WORKDIR}/moal.modprobe.conf.nxpiw612 ${D}/etc/modprobe.d/moal.conf
-    else
-        install -m 0644 ${WORKDIR}/moal.modprobe.conf ${D}/etc/modprobe.d/moal.conf
-    fi
+    install -m 0644 ${WORKDIR}/moal.modprobe.conf ${D}/etc/modprobe.d/moal.conf
 }
+
+RDEPENDS:${PN} += "${PN}-cfg"
