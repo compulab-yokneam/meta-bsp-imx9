@@ -1,0 +1,1 @@
+SUBSYSTEM=="net", ACTION=="add", DEVPATH=="/devices/platform/soc@0/4c100000.usb/ci_hdrc.0/usb1/1-1/1-1:1.0/net/usb0" NAME="wwan0"

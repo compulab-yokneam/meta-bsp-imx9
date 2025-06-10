@@ -1,0 +1,3 @@
+auto wwan0
+allow-hotplug wwan0
+iface wwan0 inet manual
