@@ -3,11 +3,11 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 SRC_URI += "file://0001-wifi_mod_para.conf-change-fw-to-enable-sdio-BT.patch"
 
 SRC_URI:append:iot-link = " \
-    https://github.com/Ezurio/SonaNX-Release-Packages/releases/download/LRD-REL-12.103.0.5/summit-nx61x-firmware-12.103.0.5.tar.bz2;name=nx61x-firmware;subdir=summit \
+	https://github.com/Ezurio/SonaNX-Release-Packages/releases/download/LRD-REL-12.103.8.3/summit-nx61x-firmware-12.103.8.3.tar.bz2;name=nx61x-firmware;subdir=summit \
 "
 
-SRC_URI[nx61x-firmware.md5sum] = "0521ee3abd44741efbc8074712bc5b3a"
-SRC_URI[nx61x-firmware.sha256sum] = "26e46606063a1a0574e5120f0a4bd90af8453025cac80bbd1e49dbff9f501cd3"
+SRC_URI[nx61x-firmware.md5sum] = '014cc5fac9752449500fff642ff97b5a'
+SRC_URI[nx61x-firmware.sha256sum] = 'cbd9b84dac10739983e16001ca3c64ab99fe681fee4b17cbfe1197f1fc039ff8'
 SUMMIT_DIR:iot-link = "${WORKDIR}/summit/lib/firmware"
 
 do_install:append:iot-link() {
