@@ -8,10 +8,6 @@ It is up to developers to prepare the host machine; it requires:
 ```
 mkdir -p compulab-kernel/build && cd compulab-kernel
 ```
-* Set a machine that matches your SoM:
-```
-export MACHINE=mcm-imx93
-```
 * Clone the source code:
 ```
 git clone -b linux-compulab_v6.6.52 https://github.com/compulab-yokneam/linux-compulab.git
