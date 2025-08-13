@@ -15,22 +15,23 @@ export MACHINE=mcm-imx93
 * Clone the source code:
 ```
 git clone -b linux-compulab_v6.6.52 https://github.com/compulab-yokneam/linux-compulab.git
+cd linux-compulab
 ```
 ## Compile the Kernel
 * Apply the default CompuLab config:
 ```
-make compulab-mx93_defconfig compulab.config
+make O=../build compulab-mx93_defconfig compulab.config
 ```
 * Issue menuconfig on order to change the default CompuLab configuration:
 ```
-make menuconfig
+make O=../build menuconfig
 ```
 * Build the kernel
 ```
-nice make -j`nproc` O=build/
+nice make -j`nproc` O=../build
 ```
 * Build device tree only
 ```
-make dtbs -j`nproc` O=build/
+make dtbs -j`nproc` O=../build
 ```
 * [Deploy the CompuLab Linux Kernel to CompuLab devices](https://github.com/compulab-yokneam/Documentation/blob/master/etc/linux_kernel_deployment.md#create-deb-package)
