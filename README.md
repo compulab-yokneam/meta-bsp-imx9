@@ -1,5 +1,4 @@
 ## Supported Compulab Products
-[MCM-iMX93 - i.MX93 SMD System-on-Module](https://www.compulab.com/products/computer-on-modules/mcm-imx93-nxp-i-mx-93-som-smd-system-on-module/)
 [IOT-LINK Industrial IoT Gateway](https://www.compulab.com/products/iot-gateways/iot-link-industrial-iot-gateway/)
 
 **Preferred OS for build host is Ubuntu 22.04. It can be utilized with Docker: https://github.com/compulab-yokneam/yocker**
@@ -16,45 +15,36 @@ wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/
 repo sync
 ```
 ## Setup Yocto build environment
-* Set a machine that matches your board:
-
-| Machine | Command line |
-|---|---|
-|ucm-imx93|export MACHINE=ucm-imx93|
-|mcm-imx93|export MACHINE=mcm-imx93|
-|iot-link|export MACHINE=iot-link|
-
-* Set up the environment whether new or already existing:
+* Set a machine
+```
+export MACHINE=iot-link
+```
+* Set up the environment (new or existing):
 ```
 source compulab-setup-env build-${MACHINE}
 ```
 ##  Building rootfs image:
-* For EVK run:
-```
-bitbake -k imx-image-full
-image_location=${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-image-full-${MACHINE}*.wic.zst
-```
-* For IOT-LINK run:
 ```
 bitbake -k fsl-image-network-full-cmdline
-image_location=${BUILDDIR}/tmp/deploy/images/${MACHINE}/fsl-image-network-full-cmdline-${MACHINE}.rootfs-*.wic.zst
+IMAGE_DIR=${BUILDDIR}/tmp/deploy/images/${MACHINE}
+IMAGE_NAME=fsl-image-network-full-cmdline-${MACHINE}.rootfs-*.wic.zst
+BL_NAME=imx-boot-tagged
 ```
 ## Deployment
-### Bootable sd card method - not for IOT-LINK
+### Bootable media
 #### Host Machine ####
 ```
-sudo zstd -dc $image_location | sudo dd bs=1M status=progress of=/dev/sdX
+sudo zstd -dc ${IMAGE_DIR}/${IMAGE_NAME} | sudo dd bs=1M status=progress of=/dev/sdX
 ```
 #### SoM ####
 * Power off
-* Insert the created sd-card
-* short alt. boot jumper
+* Insert the created media
 * Power on
-### UUU method
+### UUU method (for advanced developers)
 #### Host Machine ####
 ```
-cd ${BUILDDIR}/tmp/deploy/images/${MACHINE}
-sudo uuu -v -b emmc_all imx-boot-tagged mx-image-full-${MACHINE}.wic.zst
+cd ${IMAGE_DIR}
+sudo uuu -v -b emmc_all ${BL_NAME} ${IMAGE_NAME}
 ```
 #### SoM ####
 * Power off
@@ -64,5 +54,4 @@ sudo uuu -v -b emmc_all imx-boot-tagged mx-image-full-${MACHINE}.wic.zst
 ## Optional target - bootloader only
 ```
 bitbake -k imx-boot
-bootloader_location=${BUILDDIR}/tmp/deploy/images/${MACHINE}/imx-boot-tagged
 ```
