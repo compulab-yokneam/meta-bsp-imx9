@@ -22,19 +22,15 @@ mkdir -p compulab-kernel/build && cd compulab-kernel
 
 * Clone the source code:
 ```
-git clone -b linux-compulab_v6.6.3 https://github.com/compulab-yokneam/linux-compulab.git
-cd linux-compulab; mkdir -p lib/firmware
-wget -O - https://github.com/compulab-yokneam/bin/raw/linux-firmware/imx-sdma-20230404.tar.bz2 | tar -C lib/firmware/ -xjf -
+git clone -b linux-compulab_v6.6.52-rt https://github.com/compulab-yokneam/linux-compulab.git
 ```
 
 ## Compile the Kernel
-
-* Apply the default CompuLab config:
+* Apply the CompuLab config:
 ```
-make compulab-mx93_defconfig compulab.config
+make compulab-mx93_defconfig 
 ```
-
-* Issue menuconfig on order to change the default CompuLab configuration:
+* To change the default CompuLab configuration run:
 ```
 make menuconfig
 ```
