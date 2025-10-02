@@ -20,6 +20,7 @@ repo sync
 
 | Machine | Command line |
 |---|---|
+|ucm-imx91|export MACHINE=ucm-imx91|
 |ucm-imx93|export MACHINE=ucm-imx93|
 |mcm-imx93|export MACHINE=mcm-imx93|
 |iot-link|export MACHINE=iot-link|
