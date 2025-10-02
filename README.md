@@ -1,8 +1,17 @@
 ## Supported Compulab Products
-[MCM-iMX93 - i.MX93 SMD System-on-Module](https://www.compulab.com/products/computer-on-modules/mcm-imx93-nxp-i-mx-93-som-smd-system-on-module/)
-[IOT-LINK Industrial IoT Gateway](https://www.compulab.com/products/iot-gateways/iot-link-industrial-iot-gateway/)
 
-**Preferred OS for build host is Ubuntu 22.04. It can be utilized with Docker: https://github.com/compulab-yokneam/yocker**
+* [UCM-iMX91L - NXP i.MX 91 System-on-Module](https://www.compulab.com/products/computer-on-modules/ucm-imx91l-nxp-i-mx-91-som-system-on-module/)
+
+* [MCM-iMX93 - i.MX93 SMD System-on-Module](https://www.compulab.com/products/computer-on-modules/mcm-imx93-nxp-i-mx-93-som-smd-system-on-module/)
+
+* [UCM-iMX93L - NXP iMX9 System-on-Module](https://www.compulab.com/products/computer-on-modules/ucm-imx93l-nxp-imx9-som-system-on-module/)
+
+* [IOT-LINK Industrial IoT Gateway](https://www.compulab.com/products/iot-gateways/iot-link-industrial-iot-gateway/)
+
+## Build Host Requirements
+Preferred OS for build host is Ubuntu 22.04.<br>
+It can be utilized with Docker: https://github.com/compulab-yokneam/yocker
+
 ## Initialize repo manifests
 * NXP:
 ```
@@ -18,12 +27,12 @@ repo sync
 ## Setup Yocto build environment
 * Set a machine that matches your board:
 
-| Machine | Command line |
-|---|---|
-|ucm-imx91|export MACHINE=ucm-imx91|
-|ucm-imx93|export MACHINE=ucm-imx93|
-|mcm-imx93|export MACHINE=mcm-imx93|
-|iot-link|export MACHINE=iot-link|
+| Machine | Command line | Product Page
+|---|---|---|
+|ucm-imx91|export MACHINE=ucm-imx91|[UCM-iMX91L - NXP i.MX 91 System-on-Module](https://www.compulab.com/products/computer-on-modules/ucm-imx91l-nxp-i-mx-91-som-system-on-module/)|
+|ucm-imx93|export MACHINE=ucm-imx93|[MCM-iMX93 - i.MX93 SMD System-on-Module](https://www.compulab.com/products/computer-on-modules/mcm-imx93-nxp-i-mx-93-som-smd-system-on-module/)|
+|mcm-imx93|export MACHINE=mcm-imx93|[MCM-iMX93 - i.MX93 SMD System-on-Module](https://www.compulab.com/products/computer-on-modules/mcm-imx93-nxp-i-mx-93-som-smd-system-on-module/)|
+|iot-link|export MACHINE=iot-link|[IOT-LINK Industrial IoT Gateway](https://www.compulab.com/products/iot-gateways/iot-link-industrial-iot-gateway/)|
 
 * Set up the environment whether new or already existing:
 ```
