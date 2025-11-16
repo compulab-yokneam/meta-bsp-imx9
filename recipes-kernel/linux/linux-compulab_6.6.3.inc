@@ -1,6 +1,0 @@
-SRCBRANCH = "linux-compulab_v6.6.3"
-SRC_URI = "git://github.com/compulab-yokneam/linux-compulab;protocol=https;branch=${SRCBRANCH}"
-SRCREV = "${AUTOREV}"
-LINUX_VERSION = "6.6.3"
-COMPATIBLE_MACHINE = "compulab-mx93"
-KERNEL_CONFIG = "${COMPATIBLE_MACHINE}_defconfig compulab.config"
