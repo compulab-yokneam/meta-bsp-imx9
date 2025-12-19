@@ -74,7 +74,7 @@ cd /opt/NXP/cst/cst-4.0.1/crts
 od -t x4 SRK_1_2_3_4_fuse.bin
 ```
 
-b. For parsing convenience use generate_fuses.py on the fuse binary to generate the fusion commands:
+b. For parsing convenience use [generate_fuses.py](generate_fuses.py) on the fuse binary to generate the fusion commands:
 vi generate_fuses.py # prepare parser with the following :
 ```
 def parse_od_output(od_output):
