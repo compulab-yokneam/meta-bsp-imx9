@@ -1,3 +1,6 @@
+import sys
+import re
+
 def parse_od_output(od_output):
     """
     Parses the output of 'od -t x4 file.bin' and generates U-Boot fuse commands.
