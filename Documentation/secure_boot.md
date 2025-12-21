@@ -22,8 +22,8 @@ sudo mkdir $INSTALL_PATH -p
 gzip -dc <CST_FILE.tgz> | sudo tar -x -C $INSTALL_PATH
 ```
 ### Phase 3: Generate and Install Security Keys (SRK)
-required for the device's Root of Trust
-based on https://github.com/nxp-imx/uboot-imx/blob/lf_v2024.04/doc/imx/ahab/introduction_ahab.txt
+- Required for the device's Root of Trust
+- Based on https://github.com/nxp-imx/uboot-imx/blob/lf_v2024.04/doc/imx/ahab/introduction_ahab.txt
 ```
 cd /opt/NXP/cst/cst-4.0.1/keys
 ./ahab_pki_tree.sh
@@ -65,7 +65,7 @@ ahab_status
 You will see `IND - 0xFA (ELE_BAD_KEY_HASH_FAILURE_IND)`; because when the i.MX93 ROM/ELE verifies a signed image, it compares its hash to the value stored in the **Hash Fuses** and since you haven't burned them yet, they are set to factory default state and the hash in your image does not match them
 ### Phase 4: Fusing the SRK Hash and Advancing the Lifecycle
 This phase makes the Secure Boot permanent on the device.
-based on https://github.com/nxp-imx/uboot-imx/blob/lf_v2025.04/doc/imx/ahab/guides/mx8ulp_9x_secure_boot.txt#L395
+- Based on https://github.com/nxp-imx/uboot-imx/blob/lf_v2025.04/doc/imx/ahab/guides/mx8ulp_9x_secure_boot.txt#L395
 - **⚠️ WARNING: These steps are irreversible. If your keys are lost or incorrect, the board will be permanently bricked.**
 1. **Fuse the SRK Hash:** Fuse the hash of your generated public keys (Super Root Keys) into the device fuses. This tells the device's hardware (the ELE) which key to trust for authentication.
 a. **Generate Fuse Script:** Inspect the fuse data binary:
@@ -75,44 +75,10 @@ od -t x4 SRK_1_2_3_4_fuse.bin
 ```
 
 b. For parsing convenience use [generate_fuses.py](generate_fuses.py) on the fuse binary to generate the fusion commands:
-vi generate_fuses.py # prepare parser with the following :
 ```
-def parse_od_output(od_output):
-    """
-    Parses the output of 'od -t x4 file.bin' and generates U-Boot fuse commands.
-    """
-    fuse_commands = []
-    fuse_word_index = 0
-    # Regular expression to find groups of 8-character hex words
-    hex_pattern = re.compile(r'([0-9a-f]{8})')
-    for line in od_output.splitlines():
-        # Find all 8-character hex words in the line
-        matches = hex_pattern.findall(line)
-        for hex_word in matches:
-            if fuse_word_index < 8:
-                # The SRK Hash starts at bank 16, word 0, and uses 8 words
-                command = f"fuse prog 16 {fuse_word_index} 0x{hex_word}"
-                fuse_commands.append(command)
-                fuse_word_index += 1
-            else:
-                break # after the 8th word
-        if fuse_word_index >= 8:
-            break
-    return fuse_commands
-
-output = sys.stdin.read()
-print("### U-Boot Fusing Commands ###")
-print("Copy and paste these commands one by one into the U-Boot console.")
-print("---")
-for cmd in parse_od_output(output):
-    print(cmd)
+od -t x4 /opt/NXP/cst/cst-4.0.1/crts/SRK_1_2_3_4_fuse.bin| python3 <(curl -fsSL https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/refs/heads/scarthgap/Documentation/generate_fuses.py)
 ```
-run it:
-```
-od -t x4 /opt/NXP/cst/cst-4.0.1/crts/SRK_1_2_3_4_fuse.bin | python3 generate_fuses.py
-```
-c. Execute the generated commands on the target board (via U-Boot or other mechanism) to burn the SRK hash.
-1. **Advance Lifecycle:** After verifying the SRK hash is fused, advance the device lifecycle from "OEM Open" to "OEM Closed" using the appropriate U-Boot command:
+1. **Advance Lifecycle:** After the SRK hash is fused, advance the device lifecycle from "OEM Open" to "OEM Closed" using the U-Boot command:
 ```
 ahab_close
 ```
