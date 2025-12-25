@@ -35,13 +35,13 @@ cd /opt/NXP/cst/cst-4.0.1/keys
 # Enter PKI tree duration (years): 5
 # Do you want the SRK certificates to have the CA flag set? (y/n)?: n
 ```
-1. **Integrate CST Path:** Set the path to the CST tool within your Yocto configuration by appending it to `local.conf`:
+* **Integrate CST Path:** Set the path to the CST tool within your Yocto configuration by appending it to `local.conf`:
 ```
 cat << eof >> $BBPATH/conf/local.conf
 SIG_TOOL_PATH = "/opt/NXP/cst/cst-4.0.1"
 eof
 ```
-1. **Fix Build Errors (Symlinks):** The build system looks for files named with the ECC parameters you selected (`prime256v1`) that differ from the NXP default links (`secp256r1`). Run the following solution:
+* **Fix Build Errors (Symlinks):** The build system looks for files named with the ECC parameters you selected (`prime256v1`) that differ from the NXP default links (`secp256r1`). Run the following solution:
 ```
 cd /opt/NXP/cst/cst-4.0.1/keys
 ```
@@ -50,6 +50,16 @@ for i in {1..4}; do ln -s SRK${i}_sha256_secp256r1_v3_usr_key.pem SRK${i}_sha256
 cd ../crts/
 for i in {1..4}; do ln -s SRK${i}_sha256_secp256r1_v3_usr_crt.pem SRK${i}_sha256_prime256v1_v3_ca_crt.pem; done
 ```
+
+* Generating SRK Table and SRK Hash in Linux 64-bit machines:
+```
+../linux64/bin/srktool -a -d sha256 -s sha256 -t SRK_1_2_3_4_table.bin -e SRK_1_2_3_4_fuse.bin -f 1 -c \
+SRK1_sha256_secp256r1_v3_usr_crt.pem,\
+SRK2_sha256_secp256r1_v3_usr_crt.pem,\
+SRK3_sha256_secp256r1_v3_usr_crt.pem,\
+SRK4_sha256_secp256r1_v3_usr_crt.pem
+```
+
 1. **Build Signed Image:** 
 ```
 bitbake imx-boot-signature
