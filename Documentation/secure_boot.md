@@ -14,7 +14,7 @@ bitbake-layers add-layer ../sources/meta-nxp-security-reference-design/meta-secu
 ```
 ### Phase 2: Download and Install NXP CST
 The NXP Code Signing Tool (CST) cannot be downloaded automatically by Yocto due to NXP licensing requirements.
-1. **Download CST:** Manually download the latest version of the CST from the [NXP CST Download Page](https://www.nxp.com/webapp/sps/download/license.jsp?colCode=IMX_CST_TOOL)
+1. **Download CST:** Manually download the latest version of the CST from the [NXP CST Download Page](https://www.nxp.com/search?keyword=cst%2520tools&start=0)
 2. **Extract:**
 ```
 INSTALL_PATH="/opt/NXP/cst"
