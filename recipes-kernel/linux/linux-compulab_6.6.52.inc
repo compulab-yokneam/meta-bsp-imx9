@@ -1,7 +1,6 @@
 LICENSE = "GPL-2.0-or-later"
-SRCBRANCH = "linux-compulab_v6.6.52-rt"
+SRCBRANCH ?= "linux-compulab_v6.6.52-rt"
 SRC_URI = "git://github.com/compulab-yokneam/linux-compulab;protocol=https;branch=${SRCBRANCH}"
-SRCREV = "d2f1af95af7c37b9f43004e08c9721dcef98e0b4"
 LINUX_VERSION = "6.6.52"
 KERNEL_CONFIG = "compulab-mx93_defconfig"
-
+SRCREV ?= "${AUTOREV}"
