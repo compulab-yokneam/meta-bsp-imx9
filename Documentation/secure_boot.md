@@ -1,10 +1,10 @@
 ## Demo Tutorial: Enabling AHAB Secure Boot on iMX93 based products
-This tutorial outlines the steps necessary to integrate the NXP Code Signing Tool (CST) into the Compulab Yocto build environment, generate security keys, sign the bootloader, and permanently fuse the Super Root Key (SRK) hash onto the MCM-iMX93 but it works also for UCM-IMX93 and iot-link
+This tutorial outlines the steps necessary to integrate the NXP Code Signing Tool (CST) into the Compulab Yocto build environment, generate security keys, sign the bootloader, and permanently fuse the Super Root Key (SRK) hash onto the target
 ### Support and Documentation
 1. Compulab provides support for the integration of AHAB Secure Boot, as it is a major strategic development goal for the i.MX9 platform. The implementation involves utilizing the NXP CST tool.
 2. **Documentation:** The underlying Yocto layer integration code is available at https://github.com/compulab-yokneam/meta-bsp-imx9/commit/e30e93408b9114185263b90b28c627326475df03 which provides support for this feature.
 ### Phase 1: Prepare Yocto Sources and Integrate Security Layer
-1. **Prepare Yocto Sources:** Initialize and synchronize 
+1. **Prepare Yocto Sources:** Initialize and synchronize
 https://github.com/compulab-yokneam/meta-bsp-imx9/blob/scarthgap/README.md
 2. **Add Security Layer:** Add the NXP Security Reference Design layer to your build environment:
 ```
@@ -60,17 +60,17 @@ SRK3_sha256_secp256r1_v3_usr_crt.pem,\
 SRK4_sha256_secp256r1_v3_usr_crt.pem
 ```
 
-1. **Build Signed Image:** 
+1. **Build Signed Image:**
 ```
 bitbake imx-boot-signature
 ```
 boot e.g.:
 ```
-sudo uuu $BBPATH/tmp/deploy/images/mcm-imx93/signed-imx-boot-mcm-imx93-sd.bin-flash_singleboot
+sudo uuu $BBPATH/tmp/deploy/images/$MACHINE/signed-imx-boot-$MACHINE-sd.bin-flash_singleboot
 ```
 run:
 ```
-ahab_status 
+ahab_status
 ```
 You will see `IND - 0xFA (ELE_BAD_KEY_HASH_FAILURE_IND)`; because when the i.MX93 ROM/ELE verifies a signed image, it compares its hash to the value stored in the **Hash Fuses** and since you haven't burned them yet, they are set to factory default state and the hash in your image does not match them
 ### Phase 4: Fusing the SRK Hash and Advancing the Lifecycle

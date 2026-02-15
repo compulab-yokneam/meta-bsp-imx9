@@ -1,11 +1,11 @@
-This tutorial explains how to sign a kernel image for the **UCM-iMX93** to extend the **Root of Trust** in systems where the OEM is closed.
+This tutorial explains how to sign a kernel image to extend the **Root of Trust** in systems where the OEM is closed.
 
 **Security Scope:** simply booting a signed image is **not sufficient for full security certification**; additional steps like disabling the U-Boot CLI and securing the rootfs boot partition are required
 
 ### 1. Create the Image Container
 assuming that you cloned https://github.com/compulab-yokneam/meta-bsp-imx9/blob/scarthgap/ for secure boot
 ```
-cd $BBPATH/tmp/deploy/images/ucm-imx93/
+cd $BBPATH/tmp/deploy/images/$MACHINE
 ./mkimage_imx8 -soc IMX9 -c -ap path/to/Image a55 0x80400000 --data path/to/dtb a55 0x83000000 -out flash.bin
 mv flash.bin flash_os.bin
 ```
@@ -30,7 +30,7 @@ this can be done by building :
 ```
 bitbake imx-boot
 ```
-on the IOT-LINK:
+on the target:
 - Load the image from the MMC:
 ```
 load mmc $mmcdev:1 $cntr_addr os_cntr_signed.bin
