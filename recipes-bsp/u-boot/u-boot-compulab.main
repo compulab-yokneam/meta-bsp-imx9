@@ -22,7 +22,7 @@ B = "${WORKDIR}/build"
 
 inherit fsl-u-boot-localversion
 
-LOCALVERSION = "-compulab"
+LOCALVERSION = "-compulab-${CL_RELEASE}"
 
 BOOT_TOOLS = "imx-boot-tools"
 
