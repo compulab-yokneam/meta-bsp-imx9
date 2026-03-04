@@ -5,4 +5,4 @@ SRC_URI = "git://github.com/compulab-yokneam/u-boot-compulab;protocol=https;bran
 SRCREV = "${AUTOREV}"
 DEPENDS += " python3-setuptools-native "
 FILESEXTRAPATHS:append := "${THISDIR}/compulab/2024.04/imx93"
-SRC_URI:append:compulab-imx9 = " file://cfg-ahab.cfg"
+SRC_URI:append = " ${@bb.utils.contains('SECURE_BOOT', '1', 'file://cfg-ahab.cfg', 'file://no-ahab.cfg', d)} "
