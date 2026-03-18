@@ -1,4 +1,3 @@
-# Disclaimer                                                                                                                                                                                                                                                                    
 ## Supported Compulab Products
 [MCM-iMX93 - i.MX93 SMD System-on-Module](https://www.compulab.com/products/computer-on-modules/mcm-imx93-nxp-i-mx-93-som-smd-system-on-module/)
 
