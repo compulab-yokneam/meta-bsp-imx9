@@ -1,0 +1,2 @@
+SRCBRANCH = "u-boot-compulab_v2024.04"
+SRCREV = "6054bb97d7802c577061f0d277d4bcd960df3074"
