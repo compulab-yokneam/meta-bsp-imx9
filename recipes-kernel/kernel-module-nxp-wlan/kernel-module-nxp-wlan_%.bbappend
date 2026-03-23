@@ -19,3 +19,5 @@ do_install:append() {
 }
 
 RDEPENDS:${PN} += "${PN}-cfg"
+
+PV = "1.0+git${SRCPV}"
