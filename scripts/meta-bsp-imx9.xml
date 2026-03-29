@@ -5,7 +5,7 @@
     <project name="meta-compulab" remote="compulab" revision="0202f9768498eadc36e9f09bbde03b68266c4505" path="sources/meta-compulab"/>
     <project name="meta-compulab-bsp" remote="compulab" revision="e1e797d71410d517830f943ad8cacc38e2703e8b" path="sources/meta-compulab-bsp"/>
     <project name="meta-compulab-uefi" remote="compulab" revision="d9646b4b9ae785f3c36e90a375bc1059b8baf580" path="sources/meta-compulab-uefi"/>
-    <project name="meta-bsp-imx9" remote="compulab" revision="EVAL-UCM-iMX93-3.0.1" path="sources/meta-bsp-imx9" >
+    <project name="meta-bsp-imx9" remote="compulab" revision="EVAL-UCM-iMX93-3.0.2" path="sources/meta-bsp-imx9" >
         <linkfile src="tools/compulab-setup-env" dest="compulab-setup-env"/>
     </project>
 

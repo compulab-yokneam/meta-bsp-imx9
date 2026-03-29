@@ -1,1 +1,2 @@
-SRCREV = "2d2dd77f1591770fad348b7e5355ad77012d35be"
+SRCBRANCH = "u-boot-compulab_v2024.04-dram-updates-hotfix-for-EVAL-UCM-iMX93-3.0.2"
+SRCREV = "650599333f63fe588ffb0c7ba5354d60304be6f0"
