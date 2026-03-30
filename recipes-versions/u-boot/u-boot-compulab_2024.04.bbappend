@@ -1,1 +1,2 @@
-SRCREV = "2d2dd77f1591770fad348b7e5355ad77012d35be"
+SRCREV = "f7b4dd20c3eee722a32bcd4b9a0f6f21cb0b7116"
+SRCBRANCH = 'u-boot-compulab_v2024.04-new-memories-hotfix-for-EVAL-MCM-iMX93-2.0.2'

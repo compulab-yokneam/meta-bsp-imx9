@@ -12,7 +12,7 @@ repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-scarthgap 
 * CompuLab:
 ```
 mkdir -p .repo/local_manifests
-wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/EVAL-MCM-iMX93-2.0.1/scripts/meta-bsp-imx9.xml
+wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/EVAL-MCM-iMX93-2.0.2/scripts/meta-bsp-imx9.xml
 repo sync
 ```
 ## Setup Yocto build environment
