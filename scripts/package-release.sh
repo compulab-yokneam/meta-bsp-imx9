@@ -22,6 +22,11 @@ echo "MACHINE: $MACHINE"
 echo "RELEASE: $RELEASE"
 echo "==================================="
 
+read -p "review variables and press [Enter] to continue or [Ctrl+C] to abort..."
+sed -i '/\/workspace"/ s/^BBLAYERS/#BBLAYERS/' "$BBPATH/conf/bblayers.conf"
+bitbake imx-image-full
+bitbake yocto-linux
+
 echo "--- Comparing Tree Structure ---"
 if [ -f "$TREE_FILE" ]; then
     # Generate temporary current tree for comparison
