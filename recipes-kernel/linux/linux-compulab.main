@@ -96,7 +96,7 @@ do_kernel_localversion:prepend() {
 PACKAGES =+ "linux-headers"
 FILES:linux-headers = "${exec_prefix}/src/linux* ${nonarch_base_libdir}/modules/${KERNEL_VERSION}/build"
 
-KERNEL_SPLIT_MODULES = "0"
+KERNEL_SPLIT_MODULES = "1"
 
 EXTRA_OEMAKE += "debug=n  DEBUG=0 "
 
