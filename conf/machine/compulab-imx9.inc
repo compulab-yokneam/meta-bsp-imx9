@@ -13,3 +13,5 @@ IMAGE_INSTALL:append = " docker "
 IMAGE_INSTALL:append = " nfs-utils "
 
 PREFERRED_RROVIDER_u-boot-fw-utils = "libubootenv-bin"
+
+MACHINE_FIRMWARE:append = " ethos-u-firmware linux-firmware-sd8997 "
