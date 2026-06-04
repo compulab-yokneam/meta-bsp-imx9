@@ -7,7 +7,7 @@ MACHINE="${MACHINE:-ucm-imx93}"
 RELEASE="${RELEASE:-}"
 
 if [ -z "$RELEASE" ]; then
-    echo "Error: \$RELEASE environment variable is not set. Run 'export RELEASE=your_version' first." >&2
+    echo "Error: \$RELEASE environment variable is not set. Run e.g.: 'export RELEASE=EVAL-MCM-iMX93-2.0.2' first." >&2
     exit 1
 fi
 
@@ -23,7 +23,15 @@ echo "RELEASE: $RELEASE"
 echo "==================================="
 
 read -p "review variables and press [Enter] to continue or [Ctrl+C] to abort..."
+echo "masking workspace layer in $BBPATH/conf/bblayers.conf"
 sed -i '/\/workspace"/ s/^BBLAYERS/#BBLAYERS/' "$BBPATH/conf/bblayers.conf"
+echo "updating MACHINE in $BBPATH/conf/local.conf"
+LOCAL_CONF="$BBPATH/conf/local.conf"
+if grep -q "^#\?MACHINE" "$LOCAL_CONF"; then
+    sed -i "s/^#\?MACHINE.*/MACHINE ??= '$MACHINE'/" "$LOCAL_CONF"
+else
+    echo "MACHINE ??= '$MACHINE'" >> "$LOCAL_CONF"
+fi
 bitbake imx-image-full
 bitbake yocto-linux
 
