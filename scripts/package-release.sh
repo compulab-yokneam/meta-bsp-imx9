@@ -67,5 +67,5 @@ echo "--- Verifying Deployment Availability ---"
 echo "Checking URL: $FILE_URL"
 
 curl -I "$FILE_URL"
-echo "paste to wiki page:"
+echo "grep for these versions in BSP layer"
 cat $MACHINE\:yocto-linux/version.txt
