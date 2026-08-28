@@ -1,0 +1,23 @@
+From b975edb1c37fb13335eedc17b68ffaf2f9957a91 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Fri, 28 Aug 2026 16:34:27 +0300
+Subject: [PATCH] cl-imx93: Fix the ethphy1 reset-gpio
+
+Signed-off-by: Valentin Raevsky <valentin@compulab.co.il>
+---
+ arch/arm/dts/cl-imx93-u-boot.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/dts/cl-imx93-u-boot.dtsi b/arch/arm/dts/cl-imx93-u-boot.dtsi
+index 540578284cb..6b457d4d57a 100644
+--- a/arch/arm/dts/cl-imx93-u-boot.dtsi
++++ b/arch/arm/dts/cl-imx93-u-boot.dtsi
+@@ -171,7 +171,7 @@
+ };
+ 
+ &ethphy1 {
+-	reset-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
++	reset-gpios = <&gpio2 6 GPIO_ACTIVE_LOW>;
+ 	reset-assert-us = <15000>;
+ 	reset-deassert-us = <100000>;
+ };

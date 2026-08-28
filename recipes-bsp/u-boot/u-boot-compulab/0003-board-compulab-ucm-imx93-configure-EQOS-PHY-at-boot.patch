@@ -1,0 +1,117 @@
+From e327349079542e514d14bfcb1c01098421dc7331 Mon Sep 17 00:00:00 2001
+From: Valentin Raevsky <valentin@compulab.co.il>
+Date: Fri, 28 Aug 2026 14:54:44 +0000
+Subject: [PATCH] board: compulab: ucm-imx93: configure EQOS PHY at boot
+
+---
+ board/compulab/ucm-imx93/ucm-imx93.c | 60 +++++++++++++++++++++++++++-
+ configs/ucm-imx93_defconfig          |  1 +
+ 2 files changed, 60 insertions(+), 1 deletion(-)
+
+diff --git a/board/compulab/ucm-imx93/ucm-imx93.c b/board/compulab/ucm-imx93/ucm-imx93.c
+index 3debaed17d1..76880ab7d98 100644
+--- a/board/compulab/ucm-imx93/ucm-imx93.c
++++ b/board/compulab/ucm-imx93/ucm-imx93.c
+@@ -5,9 +5,11 @@
+ 
+ #include <common.h>
+ #include <env.h>
++#include <event.h>
+ #include <init.h>
+ #include <miiphy.h>
+ #include <netdev.h>
++#include <phy.h>
+ #include <asm/global_data.h>
+ #include <asm/arch-imx9/ccm_regs.h>
+ #include <asm/arch/sys_proto.h>
+@@ -16,6 +18,7 @@
+ #include <power/pmic.h>
+ #include "../common/tcpc.h"
+ #include <dm/device.h>
++#include <dm/read.h>
+ #include <dm/uclass.h>
+ #include <usb.h>
+ #include <dwc3-uboot.h>
+@@ -85,11 +88,66 @@ static int setup_fec(void)
+ int board_phy_config(struct phy_device *phydev)
+ {
+ 	if (phydev->drv->config)
+-		phydev->drv->config(phydev);
++		return phydev->drv->config(phydev);
+ 
+ 	return 0;
+ }
+ 
++static int ucm_imx93_configure_eqos_phy(void)
++{
++	struct ofnode_phandle_args phy_args;
++	struct phy_device *phydev;
++	struct mii_dev *bus;
++	struct udevice *dev;
++	phy_interface_t interface;
++	u32 addr;
++	int ret;
++
++	if (IS_ENABLED(CONFIG_SPL_BUILD))
++		return 0;
++
++	/* ethernet0 is the EQOS interface in cl-imx93.dtsi. */
++	ret = uclass_get_device_by_seq(UCLASS_ETH, 0, &dev);
++	if (ret)
++		return ret;
++
++	bus = miiphy_get_dev_by_name(dev->name);
++	if (!bus)
++		return -ENODEV;
++
++	ret = dev_read_phandle_with_args(dev, "phy-handle", NULL, 0, 0,
++					 &phy_args);
++	if (ret)
++		return ret;
++
++	ret = ofnode_read_u32(phy_args.node, "reg", &addr);
++	if (ret)
++		return ret;
++
++	interface = dev_read_phy_mode(dev);
++	phydev = phy_connect(bus, addr, dev, interface);
++	if (!phydev)
++		return -ENODEV;
++
++	phydev->node = phy_args.node;
++
++	return phy_config(phydev);
++}
++
++static int ucm_imx93_last_stage_init(void)
++{
++	int ret;
++
++	ret = ucm_imx93_configure_eqos_phy();
++	if (ret)
++		printf("Failed to configure EQOS PHY: %d\n", ret);
++
++	/* PHY configuration failure must not prevent the board from booting. */
++	return 0;
++}
++
++EVENT_SPY_SIMPLE(EVT_LAST_STAGE_INIT, ucm_imx93_last_stage_init);
++
+ static int setup_eqos(void)
+ {
+ 	struct blk_ctrl_wakeupmix_regs *bctrl =
+diff --git a/configs/ucm-imx93_defconfig b/configs/ucm-imx93_defconfig
+index 2cba3115275..be8fce9e146 100644
+--- a/configs/ucm-imx93_defconfig
++++ b/configs/ucm-imx93_defconfig
+@@ -29,6 +29,7 @@ CONFIG_BOOTCOMMAND="run bsp_bootcmd; run distro_bootcmd"
+ CONFIG_ARCH_MISC_INIT=y
+ CONFIG_BOARD_EARLY_INIT_F=y
+ CONFIG_BOARD_LATE_INIT=y
++CONFIG_LAST_STAGE_INIT=y
+ CONFIG_SPL_HAS_BSS_LINKER_SECTION=y
+ CONFIG_SPL_BSS_START_ADDR=0x2051a000
+ CONFIG_SPL_BOARD_INIT=y
+-- 
+2.43.0
+
