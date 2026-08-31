@@ -1,3 +1,7 @@
+# CompuLab IOT-LINK BSP Layer
+
+This repository was created as the base Yocto Project BSP layer for building a Debian 12 distribution for CompuLab IOT-LINK devices.
+
 ## Supported Compulab Products
 [IOT-LINK Industrial IoT Gateway](https://www.compulab.com/products/iot-gateways/iot-link-industrial-iot-gateway/)
 
@@ -11,7 +15,7 @@ repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-scarthgap 
 * CompuLab:
 ```
 mkdir -p .repo/local_manifests
-wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/iot-link-1.0.2/scripts/meta-bsp-imx9.xml
+wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/iot-link-1.2-snap/scripts/meta-bsp-imx9.xml
 repo sync
 ```
 ## Setup Yocto build environment
