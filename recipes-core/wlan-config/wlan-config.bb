@@ -6,7 +6,6 @@ SRC_URI = " \
     file://80-wifi-powersave.rules \
 "
 
-S = "${WORKDIR}"
 
 do_install() {
     install -d ${D}${sysconfdir}/udev/rules.d

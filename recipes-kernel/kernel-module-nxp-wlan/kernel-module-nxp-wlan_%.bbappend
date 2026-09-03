@@ -15,7 +15,7 @@ do_install:append() {
 	echo "btnxpuart" >> ${D}/${libdir}/modules-load.d/modules.conf
 
 	install -dm 0755 ${D}/${sysconfdir}/modprobe.d
-	install -m 0644 ${WORKDIR}/moal.modprobe.conf ${D}/etc/modprobe.d/moal.conf
+	install -m 0644 ${WORKDIR}/sources/moal.modprobe.conf ${D}/etc/modprobe.d/moal.conf
 }
 
 RDEPENDS:${PN} += "${PN}-cfg"

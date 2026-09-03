@@ -17,14 +17,14 @@ S = "${WORKDIR}/git"
 #
 # If the defconfig file was created with make_savedefconfig, not all options are
 # specified, and should be restored with their defaults, not set to 'n'.
-# To properly expand a defconfig like this, we need to specify: KCONFIG_MODE="--alldefconfig"
+# To properly expand a defconfig like this, we need to specify: KCONFIG_MODE = "--alldefconfig"
 # in the kernel recipe include.
-KCONFIG_MODE="--alldefconfig"
+KCONFIG_MODE = "--alldefconfig"
 
 # We need to pass it as param since kernel might support more then one
 # machine, with different entry points
 KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
-KBUILD_DEFCONFIG ?= "compulab-mx93_defconfig"
+KBUILD_DEFCONFIG ?= "compulab_v8_defconfig"
 EXTRA_OEMAKE += "DTC_FLAGS=-@ "
 
 DEPENDS += "lzop-native bc-native"
@@ -33,7 +33,7 @@ require linux-compulab_${PV}.inc
 
 DEFAULT_PREFERENCE = "1"
 
-KERNEL_VERSION_SANITY_SKIP="1"
+KERNEL_VERSION_SANITY_SKIP = "1"
 
 # Merged from the bbappend
 FILESEXTRAPATHS:prepend := "${THISDIR}/compulab/${PV}/imx93:"

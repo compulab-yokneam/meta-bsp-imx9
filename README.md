@@ -16,7 +16,7 @@ It can be utilized with Docker: https://github.com/compulab-yokneam/yocker
 * NXP:
 ```
 mkdir compulab-nxp-bsp && cd compulab-nxp-bsp
-repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-scarthgap -m imx-6.6.52-2.2.0.xml
+repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-scarthgap -m imx-6.18.20-2.2.0.xml
 ```
 * CompuLab:
 ```

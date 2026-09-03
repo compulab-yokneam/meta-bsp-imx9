@@ -7,7 +7,7 @@ SRC_URI:append = " \
 do_install:append () {
 
 	install -d ${D}/etc/
-	install -m 0644 ${WORKDIR}/fw_env.config  ${D}/etc/fw_env.config
+	install -m 0644 ${WORKDIR}/sources/fw_env.config ${D}/etc/fw_env.config
 }
 
 UBOOT_INITIAL_ENV = "u-boot-initial-env"

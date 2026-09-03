@@ -5,11 +5,4 @@ PREFERRED_PROVIDER_virtual/bootloader:compulab-mx93 = "u-boot-compulab"
 PREFERRED_PROVIDER_linux-imx-mfgtool:compulab-mx93 = "linux-compulab-mfgtool"
 PREFERRED_PROVIDER_linux-compulab-mfgtool:compulab-mx93 = "linux-compulab-mfgtool"
 
-IMAGE_INSTALL:append = " kernel-image kernel-modules kernel-devicetree "
-IMAGE_INSTALL:append = " python3-pytest "
-IMAGE_INSTALL:append = " kernel-module-nxp-wlan firmware-nxp-wifi-nxp-common "
-IMAGE_INSTALL:append = " e2fsprogs-tune2fs openssh openssh-sshd "
-IMAGE_INSTALL:append = " docker "
-IMAGE_INSTALL:append = " nfs-utils "
-
 PREFERRED_RROVIDER_u-boot-fw-utils = "libubootenv-bin"

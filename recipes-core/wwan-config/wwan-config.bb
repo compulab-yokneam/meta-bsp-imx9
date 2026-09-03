@@ -8,8 +8,6 @@ SRC_URI = " \
     file://wwan0 \
 "
 
-S = "${WORKDIR}"
-
 do_install() {
     install -d ${D}${sysconfdir}/udev/rules.d
     install -m 0644 ${WORKDIR}/50-wwan0.rules ${D}${sysconfdir}/udev/rules.d/
