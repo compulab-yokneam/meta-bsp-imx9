@@ -18,6 +18,8 @@ IMAGE_INSTALL:append = " \
     e2fsprogs-tune2fs \
     openssh \
     openssh-sshd \
+    cl-uboot \
+    cl-deploy \
     docker \
     nfs-utils \
     python3-pytest \
