@@ -12,8 +12,10 @@ DEPENDS += " \
     bc-native \
     bison-native \
     dtc-native \
+    efitools-native \
     flex-native \
     gnutls-native \
+    python3-setuptools-native \
     xxd-native \
 "
 
