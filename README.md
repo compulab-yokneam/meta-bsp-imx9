@@ -16,12 +16,12 @@ It can be utilized with Docker: https://github.com/compulab-yokneam/yocker
 * NXP:
 ```
 mkdir compulab-nxp-bsp && cd compulab-nxp-bsp
-repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-scarthgap -m imx-6.18.20-2.2.0.xml
+repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-wrynose -m imx-6.18.20-2.0.0.xml
 ```
 * CompuLab:
 ```
 mkdir -p .repo/local_manifests
-wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/scarthgap/scripts/meta-bsp-imx9.xml
+wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx9/wrynose/scripts/meta-bsp-imx9.xml
 repo sync
 ```
 ## Setup Yocto build environment
