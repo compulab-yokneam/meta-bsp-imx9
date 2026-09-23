@@ -10,8 +10,8 @@ SRC_URI = " \
 
 do_install() {
     install -d ${D}${sysconfdir}/udev/rules.d
-    install -m 0644 ${WORKDIR}/50-wwan0.rules ${D}${sysconfdir}/udev/rules.d/
+    install -m 0644 ${UNPACKDIR}/50-wwan0.rules ${D}${sysconfdir}/udev/rules.d/
 
     install -d ${D}${sysconfdir}/network/interfaces.d
-    install -m 0644 ${WORKDIR}/wwan0 ${D}${sysconfdir}/network/interfaces.d/
+    install -m 0644 ${UNPACKDIR}/wwan0 ${D}${sysconfdir}/network/interfaces.d/
 }

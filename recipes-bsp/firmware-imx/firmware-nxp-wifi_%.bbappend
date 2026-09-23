@@ -1,11 +1,11 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI:append:iot-link = " \
-	https://github.com/Ezurio/Connectivity_Stack_Release_Packages/releases/download/LRD-REL-13.98.0.12/summit-nx61x-1218-firmware-13.98.0.12.tar.bz2;name=nx61x-firmware;subdir=summit \
+	https://github.com/Ezurio/Connectivity_Stack_Release_Packages/releases/download/LRD-REL-13.98.12.4/summit-nx61x-1218-firmware-13.98.12.4.tar.bz2;name=nx61x-firmware;subdir=summit \
 "
 
-SRC_URI[nx61x-firmware.sha256sum] = 'a1f3b5198fa4901a5ec32d1967d4d3d3497b0ee90eabe073912ca962295812f9'
-SUMMIT_DIR:iot-link = "${WORKDIR}/summit/lib/firmware"
+SRC_URI[nx61x-firmware.sha256sum] = '8273f680c5e500c29314a7fdb20b0f01d5ecc24db427cc7705e2339971e528c2'
+SUMMIT_DIR:iot-link = "${UNPACKDIR}/summit/lib/firmware"
 
 do_install:append:iot-link() {
 	install -d ${D}${nonarch_base_libdir}/firmware/nxp

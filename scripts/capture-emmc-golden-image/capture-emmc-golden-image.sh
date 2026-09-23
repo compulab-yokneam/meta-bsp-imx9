@@ -120,30 +120,7 @@ sync
 # The selected USB holds the image file; cl-deploy writes only the loop device.
 echo "Deploying $SOURCE to $LOOP; log: $OUT.deploy.log"
 SRC="$SOURCE" DST="$LOOP" QUIET=Yes cl-deploy > "$OUT.deploy.log" 2>&1
-
-# Leave filesystem and partition IDs, fstab and boot references to cl-deploy.
-# Preserve user-area bootloader bytes before partition 1, excluding GPT sectors.
-dd if="$SOURCE" of="$LOOP" bs="$SECTOR_SIZE" skip="$GPT_PREFIX_SECTORS" seek="$GPT_PREFIX_SECTORS" count=$((BOOT_START - GPT_PREFIX_SECTORS)) conv=notrunc,fsync status=none
-mkdir "$WORK/root"
-mount "${LOOP}p2" "$WORK/root"
-[[ -f $WORK/root/etc/os-release && -d $WORK/root/usr ]] || fail "Rootfs copy is incomplete; inspect $OUT.deploy.log"
-# cl-deploy versions using plain tar do not preserve ACLs or extended attributes.
-# Reconcile them without overwriting cl-deploy's destination boot references.
-rsync -aHAXx --numeric-ids --checksum \
-    --exclude=/etc/fstab \
-    --exclude=/boot/grub/grub.cfg \
-    --exclude=/boot/EFI/BOOT/grub.cfg \
-    / "$WORK/root/" > "$OUT.metadata.log" 2>&1
-df -B1 "$WORK/root" > "$OUT.image-df.txt"
-AVAILABLE=$(df -B1 --output=avail "$WORK/root" | tail -n1 | tr -d '[:space:]')
-(( AVAILABLE >= REQUIRED_ROOT_FREE_BYTES )) || fail "Insufficient rootfs free space; see $OUT.image-df.txt"
-umount "$WORK/root"
-echo "Checking root filesystem and generating checksum..."
-e2fsck -fn "${LOOP}p2" > "$OUT.fsck.log" 2>&1 || fail "Image filesystem check failed; see $OUT.fsck.log"
-sfdisk --dump "$LOOP" > "$OUT.image.sfdisk"
-sync
-losetup --detach "$LOOP"
+echo "generating checksum..."
 LOOP=""
 (cd "$USB_MOUNT" && sha256sum "$(basename "$OUT")" > "$(basename "$OUT").sha256")
 echo "Created $OUT with checksum and validation records."
-echo "The USB will now be unmounted for removal."

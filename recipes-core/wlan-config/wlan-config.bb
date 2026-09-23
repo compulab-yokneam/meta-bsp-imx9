@@ -9,5 +9,5 @@ SRC_URI = " \
 
 do_install() {
     install -d ${D}${sysconfdir}/udev/rules.d
-    install -m 0644 ${WORKDIR}/80-wifi-powersave.rules ${D}${sysconfdir}/udev/rules.d/
+    install -m 0644 ${UNPACKDIR}/80-wifi-powersave.rules ${D}${sysconfdir}/udev/rules.d/
 }

@@ -20,6 +20,7 @@ IMAGE_INSTALL:append = " \
     openssh-sshd \
     cl-uboot \
     cl-deploy \
+    serial-console-config \
     docker \
     nfs-utils \
     python3-pytest \
