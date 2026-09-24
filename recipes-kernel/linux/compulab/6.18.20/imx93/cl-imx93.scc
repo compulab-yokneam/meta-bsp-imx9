@@ -1,0 +1,5 @@
+define KFEATURE_DESCRIPTION "CompuLab i.MX93 kernel configuration policy"
+
+kconf non-hardware compulab_add.config
+kconf non-hardware compulab_rem.config
+kconf non-hardware cl-imx93-prune.cfg

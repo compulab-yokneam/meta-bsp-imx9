@@ -1,0 +1,3 @@
+define KFEATURE_DESCRIPTION "CompuLab IOT-LINK PREEMPT_RT configuration"
+
+kconf non-hardware cl-imx93-rt.cfg
