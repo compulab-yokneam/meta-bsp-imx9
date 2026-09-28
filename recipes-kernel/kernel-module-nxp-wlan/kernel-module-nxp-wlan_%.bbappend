@@ -21,3 +21,5 @@ do_install:append() {
 RDEPENDS:${PN} += "${PN}-cfg"
 
 PV = "1.0+git${SRCPV}"
+
+EXTRA_OEMAKE = "KERNELDIR=${STAGING_KERNEL_DIR} -C ${STAGING_KERNEL_DIR} M=${S}"
