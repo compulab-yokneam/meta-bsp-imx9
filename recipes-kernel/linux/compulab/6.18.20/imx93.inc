@@ -1,20 +1,13 @@
-SRC_URI:append = " file://defconfig"
-KBUILD_DEFCONFIG = ""
-CL_IMX93_CONFIG_FRAGMENTS = ""
-CL_IMX93_CONFIG_FRAGMENTS:iot-link = "${S}/arch/arm64/configs/cl-imx93-rt.cfg"
 LOCALVERSION:append:iot-link = "-rt"
 
-# Build the CompuLab baseline first, then apply the shared additions/removals
-# the i.MX93 pruning policy, and the optional machine-specific RT policy.
+# Configuration fragments already present in the kernel source tree.
+KERNEL_FEATURES:append = " compulab_add.config "
+KERNEL_FEATURES:append = " compulab_rem.config "
+KERNEL_FEATURES:append = " cl-imx93-prune.cfg "
+KERNEL_FEATURES:append = " cl-imx93-rt.cfg "
+KERNEL_FEATURES:append = "${@bb.utils.contains('DISTRO_FEATURES', 'yebian', ' nxp-wlan.config ', '', d)}"
+
 do_configure:append() {
-    oe_runmake -C ${S} O=${B} compulab_v8_defconfig
-    ${S}/scripts/kconfig/merge_config.sh -m -O ${B} \
-        ${B}/.config \
-        ${S}/arch/arm64/configs/compulab_add.config \
-        ${S}/arch/arm64/configs/compulab_rem.config \
-        ${S}/arch/arm64/configs/cl-imx93-prune.cfg \
-        ${CL_IMX93_CONFIG_FRAGMENTS}
-    oe_runmake -C ${S} O=${B} olddefconfig
     if [ "${MACHINE}" = "iot-link" ]; then
         if ! grep -q '^CONFIG_PREEMPT_RT=y$' ${B}/.config; then
             bbfatal "IOT-LINK requires CONFIG_PREEMPT_RT=y"
