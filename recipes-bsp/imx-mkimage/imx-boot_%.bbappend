@@ -8,3 +8,10 @@ IMX_BOOT_SECU_KERNEL ??= "linux-compulab"
 do_compile:prepend() {
     export KERNEL_DTB="${KERNEL_DEVICETREE_BASENAME}.dtb"
 }
+
+do_install[depends] += "${PN}:do_deploy"
+
+do_install:append() {
+    install -m 0644 ${DEPLOYDIR}/imx-boot.tagged ${D}/boot/
+    ln -sfn imx-boot.tagged ${D}/boot/imx-boot
+}
