@@ -4,6 +4,7 @@ KBUILD_DEFCONFIG = "compulab_v8_defconfig"
 # queue.  Fragments appended to SRC_URI by a downstream bbappend are then
 # merged afterwards and can extend the configuration for customer hardware.
 CL_IMX93_RT_CONFIG_FEATURE = "${@bb.utils.contains('DISTRO_FEATURES', 'linux-rt', ' file://cl-imx93-rt.scc', '', d)}"
+CL_IMX93_RT_CONFIG_FEATURE:cl-imx93 = ""
 CL_IMX93_RT_CONFIG_FEATURE:iot-link = " file://cl-imx93-rt.scc"
 CL_IMX93_CONFIG_FEATURES = "file://cl-imx93.scc${CL_IMX93_RT_CONFIG_FEATURE}"
 SRC_URI:prepend = "${CL_IMX93_CONFIG_FEATURES} "
