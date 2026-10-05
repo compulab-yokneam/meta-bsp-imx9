@@ -18,6 +18,7 @@ IMAGE_INSTALL:append = " \
     e2fsprogs-tune2fs \
     openssh \
     openssh-sshd \
+    libnss-myhostname \
     cl-uboot \
     cl-deploy \
     serial-console-config \
