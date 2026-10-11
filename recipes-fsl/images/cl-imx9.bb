@@ -24,7 +24,6 @@ IMAGE_INSTALL:append = " \
     serial-console-config \
     docker \
     nfs-utils \
-    python3-pytest \
     packagegroup-fsl-optee-imx \
     imx-ele-app \
     packagegroup-imx-ml \
@@ -33,6 +32,12 @@ IMAGE_INSTALL:append = " \
     gstreamer1.0 \
     gstreamer1.0-plugins-base \
     gstreamer1.0-plugins-good \
+    cl-growfs-rootfs \
+    libubootenv-bin u-boot-compulab-env \
+    htop iotop tmux iperf3 \
+    bluez5 eeprom-util usbutils \
+    wpa-supplicant \
+    networkmanager modemmanager \
 "
 
 export IMAGE_BASENAME = "cl-imx9"
