@@ -13,5 +13,5 @@ do_install[depends] += "${PN}:do_deploy"
 
 do_install:append() {
     install -m 0644 ${DEPLOYDIR}/imx-boot.tagged ${D}/boot/
-    ln -sfn imx-boot.tagged ${D}/boot/imx-boot
+    install -m 0644 ${DEPLOYDIR}/imx-boot ${D}/boot/imx-boot
 }

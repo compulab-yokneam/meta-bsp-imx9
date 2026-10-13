@@ -1,0 +1,85 @@
+# This script is boot.scr on the FAT boot partition. The image size and CRC
+# are filled in from the exact raw imx-boot deployed with this image.
+# eMMC is mmc 0; its boot partition is mmc 0 1. Do not write its environment
+# at offset 0x300000.
+
+setenv cl_update_addr 0x83000000
+setenv cl_verify_addr 0x88000000
+setenv cl_update_found no
+setenv cl_update_board no
+
+# Do not flash this boot container on another i.MX93 board that happens to
+# boot from the same removable image.
+@BOARD_GUARD@
+
+# Find the matching boot container on the boot media. A stale container on
+# another inserted medium cannot be selected because its size/CRC must match.
+if test "${cl_update_board}" = yes && usb start; then
+    if load usb 0:1 ${cl_update_addr} imx-boot; then
+        if itest ${filesize} == @IMAGE_SIZE@; then
+            if crc32 -v ${cl_update_addr} @IMAGE_SIZE@ @IMAGE_CRC32@; then
+                setenv cl_update_found yes
+            fi
+        fi
+    fi
+fi
+if test "${cl_update_board}" = yes && test "${cl_update_found}" != yes; then
+    if mmc dev 1 0; then
+        if load mmc 1:1 ${cl_update_addr} imx-boot; then
+            if itest ${filesize} == @IMAGE_SIZE@; then
+                if crc32 -v ${cl_update_addr} @IMAGE_SIZE@ @IMAGE_CRC32@; then
+                    setenv cl_update_found yes
+                fi
+            fi
+        fi
+    fi
+fi
+
+if test "${cl_update_found}" = yes; then
+    if mmc dev 0 1; then
+        if mmc read ${cl_verify_addr} 0 @IMAGE_BLOCKS@; then
+            if cmp.b ${cl_update_addr} ${cl_verify_addr} @IMAGE_SIZE@; then
+                echo CompuLab bootloader is already current
+                if mmc partconf 0 cl_enabled_bootpart; then
+                    if test "${cl_enabled_bootpart}" != 1; then
+                        if mmc partconf 0 0 1 0; then
+                            echo Enabling eMMC boot0; resetting
+                            reset
+                        else
+                            echo WARN: Could not enable eMMC boot0
+                        fi
+                    fi
+                fi
+            else
+                echo Updating CompuLab bootloader in eMMC boot0
+                if mmc write ${cl_update_addr} 0 @IMAGE_BLOCKS@; then
+                    if mmc read ${cl_verify_addr} 0 @IMAGE_BLOCKS@; then
+                        if cmp.b ${cl_update_addr} ${cl_verify_addr} @IMAGE_SIZE@; then
+                            if mmc partconf 0 0 1 0; then
+                                echo Bootloader update verified; resetting
+                                reset
+                            fi
+                        fi
+                    fi
+                fi
+                echo ERROR: eMMC bootloader update failed; recover through SDP
+                poweroff
+                exit
+            fi
+        else
+            echo WARN: Could not read eMMC boot0; bootloader update skipped
+        fi
+    else
+        echo WARN: eMMC boot0 is unavailable; bootloader update skipped
+    fi
+else
+    echo WARN: Bootloader update skipped: unknown board or image unavailable
+fi
+
+# The normal boot flow (or Linux after USB/SD boot) must see the eMMC user area.
+mmc dev 0 0
+
+# The current U-Boot boot flow loads boot.scr on every medium. Disable the
+# script for this boot only, then resume normal USB, SD, eMMC boot priority.
+setenv script .cl-boot-update-complete
+run bsp_bootcmd
