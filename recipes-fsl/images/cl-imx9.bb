@@ -5,6 +5,12 @@ SUMMARY = "CompuLab i.MX9 evaluation and production-development image"
 
 require recipes-fsl/images/imx-image-core.bb
 
+# The current WKS builds its boot partition from rootfs /boot; bootimg-partition
+# WKS variants instead consume IMAGE_BOOT_FILES from the deploy directory.
+IMAGE_INSTALL:append:compulab-mx93 = " imx93-boot-update-script"
+IMAGE_BOOT_FILES:append:compulab-mx93 = " imx-boot boot.scr"
+WKS_FILE_DEPENDS:append:compulab-mx93 = " imx93-boot-update-script"
+
 # The vendor 6.18 kernel's perf sources currently do not build with this
 # release's userspace tooling. Functional validation does not depend on perf.
 IMAGE_FEATURES:remove = "tools-profile"
