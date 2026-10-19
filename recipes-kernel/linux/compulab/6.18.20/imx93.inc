@@ -11,6 +11,7 @@ SRC_URI:prepend = "${CL_IMX93_CONFIG_FEATURES} "
 
 # This fragment is supplied by the kernel tree and is needed only by Yebian.
 KERNEL_FEATURES:append = "${@bb.utils.contains('DISTRO_FEATURES', 'yebian', ' nxp-wlan.config ', '', d)}"
+KERNEL_FEATURES:append = "${@bb.utils.contains('DISTRO_FEATURES', 'yebian', ' fitimage-imx93.config ', '', d)}"
 
 LOCALVERSION:append:iot-link = "-rt"
 
