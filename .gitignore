@@ -1,2 +1,3 @@
 pn-buildlist
 task-depends.dot
+__pycache__/

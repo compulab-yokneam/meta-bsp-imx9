@@ -2,8 +2,10 @@ SUMMARY = "Update the CompuLab i.MX93 eMMC bootloader before booting Linux"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-SRC_URI = "file://boot.script"
+SRC_URI = "file://boot.script.in"
 S = "${UNPACKDIR}"
+# Keep the generated script separate from its immutable input template.
+B = "${WORKDIR}/build"
 
 DEPENDS = "u-boot-mkimage-native"
 do_compile[depends] += "imx-boot:do_deploy"
@@ -22,13 +24,15 @@ python do_compile() {
     if not data or len(data) > 0x300000:
         bb.fatal("imx-boot does not fit before the eMMC boot0 environment")
 
-    source = pathlib.Path(d.getVar("UNPACKDIR")) / "boot.script"
+    source = pathlib.Path(d.getVar("UNPACKDIR")) / "boot.script.in"
     output = pathlib.Path(d.getVar("B"))
     output.mkdir(parents=True, exist_ok=True)
     script = source.read_text()
+    for placeholder in ("@BOARD_GUARD@", "@IMAGE_SIZE@", "@IMAGE_BLOCKS@",
+                        "@IMAGE_CRC32@", "@MARKER_CRC32@"):
+        if placeholder not in script:
+            bb.fatal(f"Boot update template is missing {placeholder}: {source}")
     boards = {
-        "ucm-imx93": [("ucm-imx93.dtb", "ucm-imx93")],
-        "mcm-imx93": [("sbc-mcm-imx93.dtb", "mcm-imx93")],
         "iot-link": [("iot-link.dtb", "iot-link")],
         "cl-imx93": [
             ("ucm-imx93.dtb", "ucm-imx93"),

@@ -3,7 +3,7 @@
 set -euo pipefail
 
 BBPATH="${BBPATH:-$(pwd)}"
-MACHINE="${MACHINE:-ucm-imx93}"
+MACHINE="${MACHINE:-cl-imx93}"
 RELEASE="${RELEASE:-}"
 
 if [ -z "$RELEASE" ]; then
