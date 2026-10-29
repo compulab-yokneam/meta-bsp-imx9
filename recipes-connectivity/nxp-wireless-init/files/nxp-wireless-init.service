@@ -1,0 +1,13 @@
+[Unit]
+Description=Initialize Bluetooth after NXP WLAN firmware
+After=systemd-modules-load.service systemd-udevd.service
+Before=bluetooth.service
+
+[Service]
+Type=oneshot
+ExecStart=@LIBEXECDIR@/nxp-wireless-init
+TimeoutStartSec=90
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

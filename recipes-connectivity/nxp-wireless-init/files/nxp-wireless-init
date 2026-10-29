@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eu
+
+# req_fw_nowait=0 makes moal finish firmware initialization in its probe.
+# Wait for its WLAN netdev as well: modprobe alone succeeds when no SDIO
+# device is present, and the device may enumerate after module insertion.
+modprobe moal
+attempt=0
+while [ "$attempt" -lt 60 ]; do
+    for netdev in /sys/class/net/*; do
+        [ -d "$netdev/wireless" ] || [ -e "$netdev/phy80211" ] || continue
+        module=$(readlink -f "$netdev/device/driver/module" 2>/dev/null) || continue
+        [ "${module##*/}" = moal ] || continue
+        echo "NXP WLAN ready on ${netdev##*/}; loading btnxpuart"
+        modprobe btnxpuart
+        exit 0
+    done
+    sleep 1
+    attempt=$((attempt + 1))
+done
+echo "No moal WLAN interface after 60 seconds; Bluetooth was not initialized" >&2
+exit 1
