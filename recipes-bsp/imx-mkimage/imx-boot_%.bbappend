@@ -12,6 +12,7 @@ do_compile:prepend() {
 do_install[depends] += "${PN}:do_deploy"
 
 do_install:append() {
-    install -m 0644 ${DEPLOYDIR}/imx-boot.tagged ${D}/boot/
-    install -m 0644 ${DEPLOYDIR}/imx-boot ${D}/boot/imx-boot
+    # Setscene restores shared deploy files, not the private DEPLOYDIR.
+    install -m 0644 ${DEPLOY_DIR_IMAGE}/imx-boot.tagged ${D}/boot/
+    install -m 0644 ${DEPLOY_DIR_IMAGE}/imx-boot ${D}/boot/imx-boot
 }
