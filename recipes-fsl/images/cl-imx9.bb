@@ -22,7 +22,7 @@ IMAGE_INSTALL:append = " \
     kernel-devicetree \
     kernel-module-nxp-wlan \
     firmware-nxp-wifi-nxp-common \
-    wireless-regdb \
+    wireless-regdb-static \
     e2fsprogs-tune2fs \
     openssh \
     openssh-sshd \
